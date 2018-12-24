@@ -123,7 +123,7 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "directive-selector": [true, "attribute", "ny", "camelCase"],
-    "component-selector": [true, "element", "ny", "kebab-case"]
+    "directive-selector": false,
+    "component-selector": false
   }
 }
