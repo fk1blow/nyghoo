@@ -4,7 +4,7 @@ import { StationsService } from '../stations.service';
 @Component({
   selector: 'ny-toggler',
   templateUrl: './toggler.component.html',
-  styleUrls: ['./toggler.component.css']
+  styleUrls: ['./toggler.component.scss']
 })
 export class TogglerComponent implements OnInit {
 
