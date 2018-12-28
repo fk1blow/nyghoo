@@ -1,8 +1,11 @@
-.volume {
+:host {
   position: absolute;
+  top: 28px;
   left: 0;
-  top: 0;
+  height: calc(100vh - 120px - 28px);
+}
 
+.volume {
   $warning-color: #CBCE3F;
 
   .bordered-container {

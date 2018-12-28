@@ -1,4 +1,10 @@
-<div class="radio">
+<div
+ class="radio"
+ mouseWheel
+ (mouseWheelUp)="mouseWheelUpFunc(event)"
+ (mouseWheelDown)="mouseWheelDownFunc(event)"
+>
+
   <!-- <audio
     class="d-none"
     controls
@@ -9,6 +15,7 @@
 
   <ny-volume></ny-volume>
 
+  <!-- TODO must transform this into a component -->
   <div class="playing">
     <section class="station-pic">
       <img class="img-responsive" style="width: 200px; height: 200px;" src="../../assets/images/deepspaceone-400.jpg">
@@ -21,4 +28,5 @@
   </div>
 
   <footer class="now-playing text-center"><span>Enio Morhikhone - instagib</span></footer>
+
 </div>

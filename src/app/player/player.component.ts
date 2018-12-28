@@ -12,4 +12,12 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {
   }
 
+  mouseWheelUpFunc(evt: any) {
+    console.log(evt)
+  }
+
+  mouseWheelDownFunc(evt: any) {
+    console.log(evt)
+  }
+
 }

@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./volume.component.scss']
 })
 export class VolumeComponent implements OnInit {
-
   constructor() { }
+
+  get volume() {
+    return '100$'
+  }
 
   ngOnInit() {
   }
