@@ -24,6 +24,7 @@
     "rxjs": "~6.3.3",
     "spectre.css": "^0.5.8",
     "tslib": "^1.9.0",
+    "x2js": "^3.2.3",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

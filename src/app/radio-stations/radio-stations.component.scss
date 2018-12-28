@@ -1,10 +1,12 @@
 .stations {
+  display: flex;
   height: 120px;
-  padding: 0px 40px 20px;
+  padding: 0px 40px;
   background: #46846A;
 
   &-list {
     display: flex;
+    flex: 1;
     list-style-type: none;
     margin: 0;
 
@@ -28,6 +30,19 @@
         cursor: pointer;
         border-top: 4px solid #CBCE3F;
       }
+    }
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+
+    .btn {
+      width: 40px;
+      font-size: 1.25rem;
+      background: #CBCE3F;
+      border: none;
+      border-radius: 0;
     }
   }
 }

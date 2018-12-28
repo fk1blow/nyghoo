@@ -7,3 +7,32 @@
   justify-content: space-around;
   background: #5EA487;
 }
+
+.window-controls {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  .navigation {
+    background: #CBCE3F;
+    cursor: pointer;
+  }
+
+  .btn {
+    padding: 0;
+    width: 40px;
+    border: none;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    cursor: default;
+
+    &:hover {
+      background-color: darken(#CBCE3F, 5%);
+    }
+
+    &:focus, &:active {
+      color: #EDE9F2;
+    }
+  }
+}
