@@ -1,0 +1,20 @@
+.volume {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  $warning-color: #CBCE3F;
+
+  .bordered-container {
+    height: 40px;
+    border-bottom: 3px solid $warning-color;
+  }
+
+  &-value {
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
+    padding: 0 12px;
+    height: 100%;
+  }
+}

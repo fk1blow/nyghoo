@@ -8,7 +8,7 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 1100, height: 700, resizable: false, frame: false })
+  win = new BrowserWindow({ width: 1100, height: 700, resizable: true, frame: false })
 
   // and load the index.html of the app.
   // win.loadFile('./dist/nyghoo/index.html')

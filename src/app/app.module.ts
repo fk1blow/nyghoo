@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import {NgxElectronModule} from 'ngx-electron';
+
 import { AppComponent } from './app.component';
-import { VolumeModule } from './volume/volume.module'
+// import { VolumeModule } from './volume/volume.module'
 import { PlayerModule } from './player/player.module';
 import { RadioStationsModule } from './radio-stations/radio-stations.module';
 
@@ -12,7 +14,8 @@ import { RadioStationsModule } from './radio-stations/radio-stations.module';
   ],
   imports: [
     BrowserModule,
-    VolumeModule,
+    NgxElectronModule,
+    // VolumeModule,
     PlayerModule,
     RadioStationsModule
   ],
