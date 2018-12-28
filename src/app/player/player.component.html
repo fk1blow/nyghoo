@@ -13,7 +13,12 @@
         <code>audio</code> element.
   </audio> -->
 
-  <ny-volume></ny-volume>
+  <!-- <ny-volume></ny-volume> -->
+
+<!-- <ng5-slider [options]="options"></ng5-slider> -->
+  <div class="volume-controls">
+    <ng5-slider class="volume-slider" [formControl]="sliderControl" [options]="volumeControl.options"></ng5-slider>
+  </div>
 
   <!-- TODO must transform this into a component -->
   <div class="playing">

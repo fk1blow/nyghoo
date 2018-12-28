@@ -1,22 +1,31 @@
 :host {
   position: absolute;
-  top: 28px;
-  left: 0;
-  height: calc(100vh - 120px - 28px);
+  top: calc((100vh - 120px - 28px) / 4);
+  left: 40px;
+  height: calc((100vh - 120px - 28px) / 2);
+  transition: background .2s ease-out;
+
+  &:hover {
+    background: #46846A;
+  }
 }
 
-.volume {
+.player-volume {
+  padding: 22px 8px;
+  // height: 42px;
+  // width: 42px;
+  // line-height: 42px;
   $warning-color: #CBCE3F;
 
   .bordered-container {
-    height: 40px;
-    border-bottom: 3px solid $warning-color;
+    height: 50px;
+    // border-bottom: 3px solid $warning-color;
   }
 
   &-value {
     display: flex;
     align-items: center;
-    margin-left: 24px;
+    // margin-left: 24px;
     padding: 0 12px;
     height: 100%;
   }
