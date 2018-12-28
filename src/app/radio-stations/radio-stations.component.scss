@@ -24,7 +24,7 @@
       border-top: 4px solid #46846A;
       background: none;
       outline: none;
-      transition: all .15s ease-out;
+      transition: border .1s ease-out;
 
       &:hover, &.active {
         cursor: pointer;

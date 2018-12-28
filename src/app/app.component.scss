@@ -12,10 +12,18 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  transition: background .1s ease-out;
+
+  &:hover {
+    background: #46846A;
+  }
 
   .navigation {
     background: #CBCE3F;
     cursor: pointer;
+    -webkit-app-region: no-drag;
   }
 
   .btn {
