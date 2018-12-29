@@ -51,5 +51,6 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
+// FIX electron DOMException: play() failed because the user didn't interact with the document first
 app.commandLine.appendSwitch('--autoplay-policy','no-user-gesture-required')
 

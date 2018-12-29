@@ -18,6 +18,9 @@ export class AppComponent implements OnInit {
 
   onStationChange(station: Station) {
     this.station = station
+    if (this.playerPaused) {
+      this.playerPaused = false
+    }
   }
 
   ngOnInit() {

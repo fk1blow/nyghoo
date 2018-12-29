@@ -46,13 +46,22 @@ export class PlayerComponent implements OnInit {
     // we re interested only when `paused` has changes to that
     // we `stop` or `load` the audio
     // tslint:disable-next-line:curly
-    if (!changes.paused) return;
-    if (changes.paused.firstChange) return;
+    // if (!changes.paused) return;
+    // if (changes.paused.firstChange) return;
 
-    if (changes.paused.currentValue && changes.paused.currentValue === true) {
-      this.audioPlayer.nativeElement.pause()
-    } else {
+    const {paused, station} = changes
+
+    if (station) {
+      // if it's muted and you know it...
       this.audioPlayer.nativeElement.play()
+    }
+
+    if (paused) {
+      if (changes.paused.currentValue && changes.paused.currentValue === true) {
+        this.audioPlayer.nativeElement.pause()
+      } else {
+        this.audioPlayer.nativeElement.play()
+      }
     }
   }
 
