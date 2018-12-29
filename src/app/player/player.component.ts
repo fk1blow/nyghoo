@@ -25,6 +25,8 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.audioPlayer.nativeElement.play()
+    console.log(this.station.stream)
   }
 
   mouseWheelUpFunc(evt: any) {
@@ -45,11 +47,12 @@ export class PlayerComponent implements OnInit {
     // we `stop` or `load` the audio
     // tslint:disable-next-line:curly
     if (!changes.paused) return;
+    if (changes.paused.firstChange) return;
 
     if (changes.paused.currentValue && changes.paused.currentValue === true) {
       this.audioPlayer.nativeElement.pause()
     } else {
-      this.audioPlayer.nativeElement.load()
+      this.audioPlayer.nativeElement.play()
     }
   }
 

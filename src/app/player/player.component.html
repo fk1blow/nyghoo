@@ -7,8 +7,10 @@
 
   <audio
     #audioPlayer
+    class="d-none"
     [volume]="volumeScaled"
-    [autoplay]="1"
+    autoplay="true"
+    muted
     [src]="station.stream"
   >
     Your browser does not support the
