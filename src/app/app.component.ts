@@ -33,6 +33,10 @@ export class AppComponent implements OnInit {
   }
 
   onKeyUp(evt: KeyboardEvent) {
+    //
+  }
+
+  onKeyDown(evt: KeyboardEvent) {
     const UP = 38
     const DOWN = 40
     const SPACE = 32
@@ -59,10 +63,6 @@ export class AppComponent implements OnInit {
         this.playerVolume = 0
         break;
     }
-  }
-
-  onKeyDown(evt: KeyboardEvent) {
-    console.log(evt.keyCode)
   }
 
   onPlayerVolumeChange(volume: number) {
