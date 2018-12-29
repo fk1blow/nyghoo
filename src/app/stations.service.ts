@@ -22,7 +22,7 @@ export class StationsService {
 
       {
         name: 'Beat Blender',
-        stream: 'http://ice3.somafm.com/beatblender-128-mp3',
+        stream: 'http://ice1.somafm.com/beatblender-128-mp3',
         description: 'A late night blend of deep-house and downtempo chill.',
         pic: {
           small: 'http://somafm.com/img/blender120.png',
@@ -31,9 +31,20 @@ export class StationsService {
       },
 
       {
+        name: 'Drone Zone',
+        stream: 'http://ice1.somafm.com/dronezone-128-mp3',
+        playlist: 'http://somafm.com/songs/dronezone.xml',
+        description: 'Served best chilled, safe with most medications. Atmospheric textures with minimal beats.',
+        pic: {
+          small: 'https://api.somafm.com/img/dronezone120.jpg',
+          big: 'dronezone-400.jpg'
+        }
+      },
+
+      {
         name: 'Left Coast 70s',
         description: 'Mellow album rock from the Seventies. Yacht not required.',
-        stream: 'http://ice3.somafm.com/seventies-128-mp3',
+        stream: 'http://ice1.somafm.com/seventies-128-mp3',
         pic: {
           small: 'http://somafm.com/img/seventies120.jpg',
           big: 'seventies400.jpg'
