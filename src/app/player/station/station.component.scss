@@ -1,0 +1,31 @@
+:host {
+  flex-grow: 1;
+}
+
+.playing {
+  display: flex;
+  flex-grow: 1;
+
+  .station-pic {
+    min-width: 200px;
+  }
+
+  .station-info {
+    padding-left: 20px;
+    padding-top: 20px;
+
+    header {
+      padding: 0 10px;
+      font-size: 32px;
+      background: #CBCE3F;
+      margin-bottom: 20px;
+    }
+
+    p {
+      padding: 4px 10px;
+      font-size: 18px;
+      background: #CBCE3F;
+    }
+  }
+
+}

@@ -1,32 +1,52 @@
-:host {
+.volume-control {
   position: absolute;
   top: calc((100vh - 120px - 28px) / 4);
   left: 40px;
   height: calc((100vh - 120px - 28px) / 2);
+  padding-bottom: 8px;
+  padding-top: 8px;
   transition: background .2s ease-out;
 
   &:hover {
     background: #46846A;
   }
-}
 
-.player-volume {
-  padding: 22px 8px;
-  // height: 42px;
-  // width: 42px;
-  // line-height: 42px;
-  $warning-color: #CBCE3F;
+  ::ng-deep {
+    .volume-slider {
+      .ng5-slider-bar-wrapper {
+        opacity: 0;
+      }
 
-  .bordered-container {
-    height: 50px;
-    // border-bottom: 3px solid $warning-color;
-  }
+      .ng5-slider-floor {
+        display: none;
+      }
 
-  &-value {
-    display: flex;
-    align-items: center;
-    // margin-left: 24px;
-    padding: 0 12px;
-    height: 100%;
+      .ng5-slider-ceil {
+        display: none;
+      }
+
+      .ng5-slider-pointer {
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        outline: none;
+
+        &:after {
+          display: none;
+        }
+      }
+
+      .ng5-slider-model-value {
+        left: -14px !important;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 500;
+        background: #CBCE3F;
+      }
+    }
   }
 }

@@ -5,32 +5,22 @@
  (mouseWheelDown)="mouseWheelDownFunc(event)"
 >
 
-  <!-- <audio
+  <audio
     class="d-none"
-    controls
-    src="http://ice3.somafm.com/groovesalad-128-mp3">
-        Your browser does not support the
-        <code>audio</code> element.
-  </audio> -->
+    [volume]="volumeScaled"
+    [autoplay]="false"
+    src="http://ice3.somafm.com/groovesalad-128-mp3"
+  >
+    Your browser does not support the
+    <code>audio</code> element.
+  </audio>
 
-  <!-- <ny-volume></ny-volume> -->
+  <ny-volume
+    [start]="2"
+    (changed)="onVolumeChange($event)">
+  </ny-volume>
 
-<!-- <ng5-slider [options]="options"></ng5-slider> -->
-  <div class="volume-controls">
-    <ng5-slider class="volume-slider" [formControl]="sliderControl" [options]="volumeControl.options"></ng5-slider>
-  </div>
-
-  <!-- TODO must transform this into a component -->
-  <div class="playing">
-    <section class="station-pic">
-      <img class="img-responsive" style="width: 200px; height: 200px;" src="../../assets/images/deepspaceone-400.jpg">
-    </section>
-
-    <section class="station-info">
-      <header class="d-inline-block">Deep Space One</header>
-      <p>Deep ambient electronic, experimental and space music. For inner and outer space exploration.</p>
-    </section>
-  </div>
+  <ny-station name="Deep Space One"></ny-station>
 
   <footer class="now-playing text-center"><span>Enio Morhikhone - instagib</span></footer>
 

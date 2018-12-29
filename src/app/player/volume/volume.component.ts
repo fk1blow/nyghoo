@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Options } from 'ng5-slider';
+import { Observable, from } from 'rxjs';
+
+interface SimpleSliderModel {
+  value: number;
+  options: Options;
+}
 
 @Component({
   selector: 'ny-volume',
@@ -8,18 +14,30 @@ import { Options } from 'ng5-slider';
   styleUrls: ['./volume.component.scss']
 })
 export class VolumeComponent implements OnInit {
-  sliderControl: FormControl = new FormControl(100);
 
-  options: Options = {
+  @Input() start: number
+
+  @Output() changed = new EventEmitter<number>();
+
+  volumeReady = false
+
+  sliderControl: FormControl = new FormControl(0);
+
+  sliderOptions = {
     floor: 0,
-    ceil: 250
+    ceil: 10,
+    vertical: true,
   };
 
-  get volume() {
-    return '100$'
+  private volumeThrottled: Observable<number>
+
+  onUserChange(event) {
+    this.changed.emit(event.value)
   }
 
   ngOnInit() {
+    this.sliderControl.setValue(this.start)
+    this.volumeReady = true
   }
 
 }

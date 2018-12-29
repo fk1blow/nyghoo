@@ -5,7 +5,7 @@ import { Ng5SliderModule } from 'ng5-slider';
 
 import { PlayerComponent } from './player.component';
 import { StationComponent } from './station/station.component';
-// import { VolumeComponent } from './volume/volume.component';
+import { VolumeComponent } from './volume/volume.component';
 import { MouseWheelDirective } from '../mousewheel.directive';
 
 
@@ -14,7 +14,7 @@ import { MouseWheelDirective } from '../mousewheel.directive';
     MouseWheelDirective,
     PlayerComponent,
     StationComponent,
-    // VolumeComponent
+    VolumeComponent
   ],
   imports: [
     CommonModule,

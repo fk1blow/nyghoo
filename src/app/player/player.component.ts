@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Options } from 'ng5-slider';
-
-interface SimpleSliderModel {
-  value: number;
-  options: Options;
-}
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'ny-player',
@@ -13,24 +7,16 @@ interface SimpleSliderModel {
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-  sliderControl: FormControl = new FormControl(0);
 
-  volumeControl: SimpleSliderModel = {
-    value: 0,
-    options: {
-      floor: 0,
-      ceil: 11,
-      vertical: true,
-    }
-  };
+  private volume = 2
 
-  constructor() { }
+  // station: any // tbd
 
-  ngOnInit() {
+  get volumeScaled() {
+    return (this.volume === 0) ? 0 : this.volume / 10
   }
 
-  dragEnd(event) {
-    console.log('Element was dragged', event);
+  ngOnInit() {
   }
 
   mouseWheelUpFunc(evt: any) {
@@ -39,6 +25,10 @@ export class PlayerComponent implements OnInit {
 
   mouseWheelDownFunc(evt: any) {
     console.log(evt)
+  }
+
+  onVolumeChange(volume: number) {
+    this.volume = volume
   }
 
 }
