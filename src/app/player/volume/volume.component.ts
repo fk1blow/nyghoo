@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Options } from 'ng5-slider';
 import { Observable, from } from 'rxjs';
@@ -17,6 +17,8 @@ export class VolumeComponent implements OnInit {
 
   @Input() start: number
 
+  @Input() value: number
+
   @Output() changed = new EventEmitter<number>();
 
   volumeReady = false
@@ -27,6 +29,7 @@ export class VolumeComponent implements OnInit {
     floor: 0,
     ceil: 10,
     vertical: true,
+    keyboardSupport: false,
   };
 
   private volumeThrottled: Observable<number>
@@ -38,6 +41,13 @@ export class VolumeComponent implements OnInit {
   ngOnInit() {
     this.sliderControl.setValue(this.start)
     this.volumeReady = true
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges(changes: SimpleChanges) {
+    if ((changes.value.currentValue as number) !== changes.value.previousValue) {
+      this.sliderControl.setValue(changes.value.currentValue)
+    }
   }
 
 }

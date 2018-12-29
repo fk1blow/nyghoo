@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Station } from './radio-stations/station.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +8,15 @@ export class StationsService {
 
   constructor() { }
 
-  somafmStations() {
+  getAvailable(): Station[] {
     return [
       {
         name: 'Groove Salad',
         stream: 'http://ice1.somafm.com/groovesalad-128-mp3',
         description: 'A nicely chilled plate of ambient/downtempo beats and grooves.',
         pic: {
-          small: 'http://somafm.com/img/groovesalad120.png'
+          small: 'http://somafm.com/img/groovesalad120.png',
+          big: 'groovesalad-400.jpg'
         }
       },
 
@@ -23,7 +25,8 @@ export class StationsService {
         stream: 'http://ice3.somafm.com/beatblender-128-mp3',
         description: 'A late night blend of deep-house and downtempo chill.',
         pic: {
-          small: 'http://somafm.com/img/blender120.png'
+          small: 'http://somafm.com/img/blender120.png',
+          big: 'beatblender-400.jpg'
         }
       },
 
@@ -32,9 +35,20 @@ export class StationsService {
         description: 'Mellow album rock from the Seventies. Yacht not required.',
         stream: 'http://ice3.somafm.com/seventies-128-mp3',
         pic: {
-          small: 'http://somafm.com/img/seventies120.jpg'
+          small: 'http://somafm.com/img/seventies120.jpg',
+          big: 'seventies400.jpg'
         }
       },
+
+      {
+        name: 'Deep Space One',
+        description: 'Deep ambient electronic, experimental and space music. For inner and outer space exploration.',
+        stream: 'http://ice3.somafm.com/deepspaceone-128-mp3',
+        pic: {
+          small: 'https://api.somafm.com/img/deepspaceone120.gif',
+          big: 'deepspaceone-400.jpg'
+        }
+      }
     ]
   }
 

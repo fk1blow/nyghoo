@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Station } from '../radio-stations/station.model';
 
@@ -11,10 +11,15 @@ export class PlayerComponent implements OnInit {
 
   @Input() station: Station
 
-  private volume = 2
+  @Input() volume: number
+
+  @Output() volumeChanged = new EventEmitter<number>();
+
+  // private volume = 2
 
   get volumeScaled() {
-    return (this.volume === 0) ? 0 : this.volume / 10
+    // cannot assume that volume will always hold at least zero
+    return (this.volume <= 0) ? 0 : this.volume / 10
   }
 
   ngOnInit() {
@@ -29,7 +34,7 @@ export class PlayerComponent implements OnInit {
   }
 
   onVolumeChange(volume: number) {
-    this.volume = volume
+    this.volumeChanged.emit(volume)
   }
 
 }

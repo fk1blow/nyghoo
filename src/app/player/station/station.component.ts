@@ -9,8 +9,13 @@ export class StationComponent implements OnInit {
 
   @Input() name: string
   @Input() description: string
+  @Input() pic: string
 
   constructor() { }
+
+  get stationPic() {
+    return `../../assets/images/${this.pic}`
+  }
 
   ngOnInit() {
   }

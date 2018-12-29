@@ -8,8 +8,8 @@
   <audio
     class="d-none"
     [volume]="volumeScaled"
-    [autoplay]="false"
-    src="http://ice3.somafm.com/groovesalad-128-mp3"
+    [autoplay]="1"
+    [src]="station.stream"
   >
     Your browser does not support the
     <code>audio</code> element.
@@ -17,10 +17,15 @@
 
   <ny-volume
     [start]="2"
+    [value]="volume"
     (changed)="onVolumeChange($event)">
   </ny-volume>
 
-  <ny-station [name]="station.name" [description]="station.description"></ny-station>
+  <ny-station
+    [name]="station.name"
+    [description]="station.description"
+    [pic]="station.pic.big || station.pic.small">
+  </ny-station>
 
   <footer class="now-playing text-center"><span>Enio Morhikhone - instagib</span></footer>
 

@@ -1,12 +1,18 @@
-<main class="app-main">
+<main class="app-main" (keyup)="onKeyUp($event)" tabindex="0">
 
   <ny-window-controls></ny-window-controls>
 
-  <ny-player [station]="station" style="flex-grow: 1"></ny-player>
+  <ny-player
+    (volumeChanged)="onPlayerVolumeChange($event)"
+    [station]="station"
+    [volume]="volume"
+    style="flex-grow: 1">
+  </ny-player>
 
   <ny-radio-stations
     [stations]="availableStations"
-    (changed)="onStationChange($event)"></ny-radio-stations>
+    (changed)="onStationChange($event)">
+  </ny-radio-stations>
 
 </main>
 
