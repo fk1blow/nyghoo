@@ -14,7 +14,7 @@
     muted="muted"
     [src]="station.stream"
   >
-    <!-- trick found on sw so that autoplay works as expected -->
+    <!-- trick found on sw so that autoplay works (tested in latest chrome) -->
     <source src="0.mp3" type="audio/mp3">
 
     Your browser does not support the
@@ -22,7 +22,7 @@
   </audio>
 
   <ny-volume
-    [start]="2"
+    [start]="initialVolume"
     [value]="volume"
     (changed)="onVolumeChange($event)">
   </ny-volume>

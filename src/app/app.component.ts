@@ -9,9 +9,12 @@ import { StationsService } from './stations.service';
 })
 export class AppComponent implements OnInit {
 
-  playerVolume = 2
+  playerVolume = 0
+
   playerPaused = false
+
   station?: Station
+
   availableStations?: Station[]
 
   constructor(private stationsService: StationsService) { }
@@ -33,6 +36,7 @@ export class AppComponent implements OnInit {
     const UP = 38
     const DOWN = 40
     const SPACE = 32
+    const ESC = 27
 
     switch (evt.keyCode) {
       case UP:
@@ -49,6 +53,10 @@ export class AppComponent implements OnInit {
 
       case SPACE:
         this.playerPaused = !this.playerPaused
+        break;
+
+      case ESC:
+        this.playerVolume = 0
         break;
     }
   }

@@ -24,6 +24,10 @@ export class PlayerComponent implements OnInit {
     return (this.volume <= 0) ? 0 : this.volume / 10
   }
 
+  get initialVolume() {
+    return this.volume
+  }
+
   ngOnInit() {
     // it s behaving strange because the `autoplay` should ... autoplay
     // this.audioPlayer.nativeElement.play()

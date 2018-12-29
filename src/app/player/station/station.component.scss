@@ -19,12 +19,14 @@
       font-size: 32px;
       background: #CBCE3F;
       margin-bottom: 20px;
+      transition: all .2s ease;
     }
 
     p {
       padding: 6px 14px 10px 14px;
       font-size: 18px;
       background: #CBCE3F;
+      transition: all .2s ease;
     }
   }
 
@@ -32,10 +34,12 @@
     .station-info {
       header {
         background: darken($color: #CBCE3F, $amount: 20%);
+        color: lighten($color: #CBCE3F, $amount: 20%);
       }
 
       p {
         background: darken($color: #CBCE3F, $amount: 20%);
+        color: lighten($color: #CBCE3F, $amount: 20%);
       }
     }
   }
