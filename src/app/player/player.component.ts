@@ -51,10 +51,10 @@ export class PlayerComponent implements OnInit {
     }
 
     if (paused && !paused.firstChange) {
-      if (changes.paused.currentValue && changes.paused.currentValue === true) {
+      if (paused.currentValue && paused.currentValue === true) {
         this.audioPlayer.nativeElement.pause()
       } else {
-        this.audioPlayer.nativeElement.play()
+        this.audioPlayer.nativeElement.load()
       }
     }
   }
