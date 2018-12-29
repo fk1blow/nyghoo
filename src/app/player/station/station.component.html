@@ -1,4 +1,4 @@
-<div class="playing">
+<div class="playing" [ngClass]="{ paused: paused }">
   <section class="station-pic">
     <img class="img-responsive" style="width: 200px; height: 200px;" [src]="stationPic">
   </section>

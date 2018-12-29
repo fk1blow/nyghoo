@@ -8,14 +8,14 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 1100, height: 700, resizable: true, frame: true })
+  win = new BrowserWindow({ width: 1100, height: 700, resizable: false, frame: false })
 
   // and load the index.html of the app.
-  // win.loadFile('./dist/nyghoo/index.html')
+  //win.loadFile('./dist/nyghoo/index.html')
   win.loadURL(`http://localhost:4200/index.html`);
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {

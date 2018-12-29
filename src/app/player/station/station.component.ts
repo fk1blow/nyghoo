@@ -8,13 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
 export class StationComponent implements OnInit {
 
   @Input() name: string
+
   @Input() description: string
+
   @Input() pic: string
+
+  @Input() paused: boolean
 
   constructor() { }
 
   get stationPic() {
-    return `../../assets/images/${this.pic}`
+    return `assets/images/${this.pic}`
   }
 
   ngOnInit() {
