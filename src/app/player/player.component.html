@@ -20,7 +20,7 @@
     (changed)="onVolumeChange($event)">
   </ny-volume>
 
-  <ny-station name="Deep Space One"></ny-station>
+  <ny-station [name]="station.name" [description]="station.description"></ny-station>
 
   <footer class="now-playing text-center"><span>Enio Morhikhone - instagib</span></footer>
 

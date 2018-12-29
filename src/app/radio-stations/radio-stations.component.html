@@ -1,15 +1,17 @@
 <div class="stations">
+
   <ul class="stations-list">
 
-    <li class="item">
-      <button class="station-pic">
-        <img style="height: 80px; width: 80px;" class="img-responsive" src="../../assets/images/beatblender-400.jpg">
-      </button>
-    </li>
-
-    <li class="item">
-      <button class="station-pic">
-        <img style="height: 80px; width: 80px;" class="img-responsive" src="../../assets/images/bootliquor-400.jpg">
+    <li class="item" *ngFor="let station of stations">
+      <button
+        [ngClass]="{ active: station.name === selectedStation.name }"
+        (click)="onChangeStation(station)"
+        class="station-pic"
+      >
+        <img
+          [src]="station.pic.small"
+          style="height: 80px; width: 80px;"
+          class="img-responsive">
       </button>
     </li>
 
@@ -18,4 +20,5 @@
   <aside class="stations-actions">
     <button class="btn"><i class="fal fa-plus"></i></button>
   </aside>
+
 </div>

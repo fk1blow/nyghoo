@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class StationComponent implements OnInit {
 
   @Input() name: string
+  @Input() description: string
 
   constructor() { }
 

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Station } from './station.model'
+import { StationsService } from '../stations.service';
 
 @Component({
   selector: 'ny-radio-stations',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RadioStationsComponent implements OnInit {
 
-  constructor() { }
+  @Input() stations: Station[]
+
+  @Output() changed = new EventEmitter<Station>();
+
+  selectedStation?: Station
 
   ngOnInit() {
+    this.selectedStation = this.stations[0]
+  }
+
+  onChangeStation(station: Station) {
+    if (this.selectedStation && this.selectedStation.name === station.name) {
+      return;
+    }
+
+    this.selectedStation = station
+    this.changed.emit(this.selectedStation)
   }
 
 }

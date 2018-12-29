@@ -2,9 +2,11 @@
 
   <ny-window-controls></ny-window-controls>
 
-  <ny-player style="flex-grow: 1"></ny-player>
+  <ny-player [station]="station" style="flex-grow: 1"></ny-player>
 
-  <ny-radio-stations></ny-radio-stations>
+  <ny-radio-stations
+    [stations]="availableStations"
+    (changed)="onStationChange($event)"></ny-radio-stations>
 
 </main>
 

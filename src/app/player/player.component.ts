@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PlayerService } from '../player.service';
+import { Station } from '../radio-stations/station.model';
 
 @Component({
   selector: 'ny-player',
@@ -8,9 +9,9 @@ import { PlayerService } from '../player.service';
 })
 export class PlayerComponent implements OnInit {
 
-  private volume = 2
+  @Input() station: Station
 
-  // station: any // tbd
+  private volume = 2
 
   get volumeScaled() {
     return (this.volume === 0) ? 0 : this.volume / 10
