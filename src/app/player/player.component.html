@@ -7,12 +7,16 @@
 
   <audio
     #audioPlayer
+    *ngIf="station"
     class="d-none"
     [volume]="volumeScaled"
-    autoplay="true"
-    muted
+    [autoplay]="true"
+    muted="muted"
     [src]="station.stream"
   >
+    <!-- trick found on sw so that autoplay works as expected -->
+    <source src="0.mp3" type="audio/mp3">
+
     Your browser does not support the
     <code>audio</code> element.
   </audio>

@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.availableStations = this.stationsService.getAvailable()
     this.station = this.availableStations[0]
+
   }
 
   onKeyUp(evt: KeyboardEvent) {
@@ -50,6 +51,10 @@ export class AppComponent implements OnInit {
         this.playerPaused = !this.playerPaused
         break;
     }
+  }
+
+  onKeyDown(evt: KeyboardEvent) {
+    console.log(evt.keyCode)
   }
 
   onPlayerVolumeChange(volume: number) {

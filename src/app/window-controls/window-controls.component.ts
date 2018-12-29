@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'ny-window-controls',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WindowControlsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private electronService: ElectronService) { }
 
   ngOnInit() {
+  }
+
+  onButtonClose() {
+    if (this.electronService.ipcRenderer) {
+      this.electronService.ipcRenderer.sendSync('quit-app')
+    }
   }
 
 }

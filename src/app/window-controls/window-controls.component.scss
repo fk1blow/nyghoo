@@ -13,11 +13,7 @@
   justify-content: flex-end;
   -webkit-user-select: none;
   -webkit-app-region: drag;
-  transition: background .1s ease-out;
-
-  &:hover {
-    background: #46846A;
-  }
+  background: #46846A;
 
   .navigation {
     background: #CBCE3F;

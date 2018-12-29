@@ -8,7 +8,7 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 1100, height: 700, resizable: true, frame: false })
+  win = new BrowserWindow({ width: 1100, height: 700, resizable: true, frame: true })
 
   // and load the index.html of the app.
   // win.loadFile('./dist/nyghoo/index.html')
@@ -53,4 +53,22 @@ app.on('activate', () => {
 
 // FIX electron DOMException: play() failed because the user didn't interact with the document first
 app.commandLine.appendSwitch('--autoplay-policy','no-user-gesture-required')
+
+const ipc = require('electron').ipcMain
+
+ipc.on('quit-app', function (event, arg) {
+  console.log('?')
+  // app.quit()
+
+  // const remote = require('electron').remote
+  // let w = remote.getCurrentWindow()
+  // win.close()
+  // win.hide()
+  // app.exit()
+
+  // win.minimize()
+  win.hide()
+  app.exit()
+
+})
 

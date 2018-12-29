@@ -25,8 +25,8 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.audioPlayer.nativeElement.play()
-    console.log(this.station.stream)
+    // it s behaving strange because the `autoplay` should ... autoplay
+    // this.audioPlayer.nativeElement.play()
   }
 
   mouseWheelUpFunc(evt: any) {
@@ -43,20 +43,14 @@ export class PlayerComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges(changes: SimpleChanges) {
-    // we re interested only when `paused` has changes to that
-    // we `stop` or `load` the audio
-    // tslint:disable-next-line:curly
-    // if (!changes.paused) return;
-    // if (changes.paused.firstChange) return;
-
     const {paused, station} = changes
 
-    if (station) {
+    if (station && !station.firstChange) {
       // if it's muted and you know it...
       this.audioPlayer.nativeElement.play()
     }
 
-    if (paused) {
+    if (paused && !paused.firstChange) {
       if (changes.paused.currentValue && changes.paused.currentValue === true) {
         this.audioPlayer.nativeElement.pause()
       } else {
