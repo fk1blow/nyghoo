@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Station } from '../radio-stations/station.model';
 
@@ -13,9 +13,11 @@ export class PlayerComponent implements OnInit {
 
   @Input() volume: number
 
+  @Input() paused: boolean
+
   @Output() volumeChanged = new EventEmitter<number>();
 
-  // private volume = 2
+  @ViewChild('audioPlayer') audioPlayer: ElementRef;
 
   get volumeScaled() {
     // cannot assume that volume will always hold at least zero
@@ -35,6 +37,20 @@ export class PlayerComponent implements OnInit {
 
   onVolumeChange(volume: number) {
     this.volumeChanged.emit(volume)
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges(changes: SimpleChanges) {
+    // we re interested only when `paused` has changes to that
+    // we `stop` or `load` the audio
+    // tslint:disable-next-line:curly
+    if (!changes.paused) return;
+
+    if (changes.paused.currentValue && changes.paused.currentValue === true) {
+      this.audioPlayer.nativeElement.pause()
+    } else {
+      this.audioPlayer.nativeElement.load()
+    }
   }
 
 }

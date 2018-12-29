@@ -5,7 +5,8 @@
   <ny-player
     (volumeChanged)="onPlayerVolumeChange($event)"
     [station]="station"
-    [volume]="volume"
+    [volume]="playerVolume"
+    [paused]="playerPaused"
     style="flex-grow: 1">
   </ny-player>
 

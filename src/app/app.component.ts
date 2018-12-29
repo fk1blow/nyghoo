@@ -9,10 +9,9 @@ import { StationsService } from './stations.service';
 })
 export class AppComponent implements OnInit {
 
+  playerVolume = 2
+  playerPaused = false
   station?: Station
-
-  volume = 2
-
   availableStations?: Station[]
 
   constructor(private stationsService: StationsService) { }
@@ -29,23 +28,29 @@ export class AppComponent implements OnInit {
   onKeyUp(evt: KeyboardEvent) {
     const UP = 38
     const DOWN = 40
+    const SPACEBAR = 32
 
     switch (evt.keyCode) {
       case UP:
-        if (this.volume < 10) {
-          this.volume = this.volume + 1
+        if (this.playerVolume < 10) {
+          this.playerVolume = this.playerVolume + 1
         }
         break;
+
       case DOWN:
-        if (this.volume > 0) {
-          this.volume = this.volume - 1
+        if (this.playerVolume > 0) {
+          this.playerVolume = this.playerVolume - 1
         }
+        break;
+
+      case SPACEBAR:
+        this.playerPaused = !this.playerPaused
         break;
     }
   }
 
   onPlayerVolumeChange(volume: number) {
-    this.volume = volume
+    this.playerVolume = volume
   }
 
 }

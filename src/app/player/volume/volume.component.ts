@@ -32,8 +32,6 @@ export class VolumeComponent implements OnInit {
     keyboardSupport: false,
   };
 
-  private volumeThrottled: Observable<number>
-
   onUserChange(event) {
     this.changed.emit(event.value)
   }
