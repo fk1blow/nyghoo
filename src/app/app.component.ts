@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   onKeyUp(evt: KeyboardEvent) {
     const UP = 38
     const DOWN = 40
-    const SPACEBAR = 32
+    const SPACE = 32
 
     switch (evt.keyCode) {
       case UP:
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
         }
         break;
 
-      case SPACEBAR:
+      case SPACE:
         this.playerPaused = !this.playerPaused
         break;
     }

@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Options } from 'ng5-slider';
-import { Observable, from } from 'rxjs';
 
 interface SimpleSliderModel {
   value: number;
@@ -30,6 +29,7 @@ export class VolumeComponent implements OnInit {
     ceil: 10,
     vertical: true,
     keyboardSupport: false,
+    mouseSupport: true
   };
 
   onUserChange(event) {
