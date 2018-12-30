@@ -12,7 +12,7 @@
     [volume]="volumeScaled"
     [autoplay]="true"
     muted="muted"
-    [src]="station.stream"
+    [src]="(station | async).stream"
   >
     <!-- trick found on sw so that autoplay works (tested in latest chrome) -->
     <source src="0.mp3" type="audio/mp3">
@@ -28,12 +28,12 @@
   </ny-volume>
 
   <ny-station
-    [name]="station.name"
-    [description]="station.description"
-    [pic]="station.pic.big || station.pic.small"
+    [name]="(station | async).name"
+    [description]="(station | async).description"
+    [pic]="(station | async).pic.big || (station | async).pic.small"
     [paused]="paused">
   </ny-station>
 
-  <footer class="now-playing text-center"><span>Enio Morhikhone - instagib</span></footer>
+  <footer class="now-playing text-center"><span>{{currentPlaying}}</span></footer>
 
 </div>

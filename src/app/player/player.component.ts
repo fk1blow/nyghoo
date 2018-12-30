@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
-import { PlayerService } from '../player.service';
 import { Station } from '../radio-stations/station.model';
+import { StationPlaylistService } from '../station-playlist.service';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Playlist } from '../radio-stations/playlist.model';
 
 @Component({
   selector: 'ny-player',
@@ -9,7 +12,9 @@ import { Station } from '../radio-stations/station.model';
 })
 export class PlayerComponent implements OnInit {
 
-  @Input() station: Station
+  currentPlaying?: string
+
+  @Input() station: Observable<Station>
 
   @Input() volume: number
 
@@ -28,9 +33,17 @@ export class PlayerComponent implements OnInit {
     return this.volume
   }
 
+  constructor(private stationPlaylistService: StationPlaylistService) {}
+
   ngOnInit() {
-    // it s behaving strange because the `autoplay` should ... autoplay
-    // this.audioPlayer.nativeElement.play()
+    this.station
+      .pipe(
+        switchMap(({ playlist }) => this.stationPlaylistService.follow(playlist))
+      )
+      .subscribe((playlist: Playlist) => {
+        const firstSong = playlist[0]
+        this.currentPlaying = `${firstSong.artist.text} - ${firstSong.title.text}`
+      })
   }
 
   mouseWheelUpFunc(evt: any) {

@@ -14,6 +14,7 @@ export class StationsService {
         name: 'Groove Salad',
         stream: 'http://ice1.somafm.com/groovesalad-128-mp3',
         description: 'A nicely chilled plate of ambient/downtempo beats and grooves.',
+        playlist: 'http://somafm.com/songs/groovesalad.xml',
         pic: {
           small: 'http://somafm.com/img/groovesalad120.png',
           big: 'groovesalad-400.jpg'
@@ -24,6 +25,7 @@ export class StationsService {
         name: 'Beat Blender',
         stream: 'http://ice1.somafm.com/beatblender-128-mp3',
         description: 'A late night blend of deep-house and downtempo chill.',
+        playlist: 'http://somafm.com/songs/beatblender.xml',
         pic: {
           small: 'http://somafm.com/img/blender120.png',
           big: 'beatblender-400.jpg'
@@ -45,6 +47,7 @@ export class StationsService {
         name: 'Left Coast 70s',
         description: 'Mellow album rock from the Seventies. Yacht not required.',
         stream: 'http://ice1.somafm.com/seventies-128-mp3',
+        playlist: 'http://somafm.com/songs/seventies.xml',
         pic: {
           small: 'http://somafm.com/img/seventies120.jpg',
           big: 'seventies400.jpg'
@@ -55,6 +58,7 @@ export class StationsService {
         name: 'Deep Space One',
         description: 'Deep ambient electronic, experimental and space music. For inner and outer space exploration.',
         stream: 'http://ice3.somafm.com/deepspaceone-128-mp3',
+        playlist: 'http://somafm.com/songs/deepspaceone.xml',
         pic: {
           small: 'https://api.somafm.com/img/deepspaceone120.gif',
           big: 'deepspaceone-400.jpg'

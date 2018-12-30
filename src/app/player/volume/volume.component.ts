@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Options } from 'ng5-slider';
 
@@ -12,7 +12,7 @@ interface SimpleSliderModel {
   templateUrl: './volume.component.html',
   styleUrls: ['./volume.component.scss']
 })
-export class VolumeComponent implements OnInit {
+export class VolumeComponent implements OnInit, OnChanges {
 
   @Input() start: number
 
@@ -36,16 +36,11 @@ export class VolumeComponent implements OnInit {
     this.changed.emit(event.value)
   }
 
-  onUserChangeEnd() {
-    console.log('end???')
-  }
-
   ngOnInit() {
     this.sliderControl.setValue(this.start)
     this.volumeReady = true
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges(changes: SimpleChanges) {
     if ((changes.value.currentValue as number) !== changes.value.previousValue) {
       this.sliderControl.setValue(changes.value.currentValue)

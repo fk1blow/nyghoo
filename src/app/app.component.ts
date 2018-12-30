@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Station } from './radio-stations/station.model';
 import { StationsService } from './stations.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ny-root',
@@ -11,18 +12,19 @@ export class AppComponent implements OnInit {
 
   playerVolume = 0
 
-  playerPaused = false
+  playerPaused = true
 
-  station?: Station
+  station?: BehaviorSubject<Station | null>
 
   availableStations?: Station[]
 
   @ViewChild('appMain') appMain: ElementRef;
 
-  constructor(private stationsService: StationsService) { }
+  constructor(private stationsService: StationsService) {}
 
   onStationChange(station: Station) {
-    this.station = station
+    this.station.next(station)
+
     if (this.playerPaused) {
       this.playerPaused = false
     }
@@ -30,8 +32,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.availableStations = this.stationsService.getAvailable()
-    this.station = this.availableStations[0]
     this.appMain.nativeElement.focus()
+    this.station = new BehaviorSubject(this.availableStations[0])
   }
 
   onKeyUp(evt: KeyboardEvent) {
