@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Station } from './radio-stations/station.model';
 import { StationsService } from './stations.service';
 
@@ -17,6 +17,8 @@ export class AppComponent implements OnInit {
 
   availableStations?: Station[]
 
+  @ViewChild('appMain') appMain: ElementRef;
+
   constructor(private stationsService: StationsService) { }
 
   onStationChange(station: Station) {
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.availableStations = this.stationsService.getAvailable()
     this.station = this.availableStations[0]
-
+    this.appMain.nativeElement.focus()
   }
 
   onKeyUp(evt: KeyboardEvent) {
