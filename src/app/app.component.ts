@@ -22,6 +22,9 @@ export class AppComponent implements OnInit {
 
   constructor(private stationsService: StationsService) {}
 
+  // TODO changing the stream before pausing(or stopping) the player
+  // causes a small(tick) sound distortion noticeable and annoying
+
   onStationChange(station: Station) {
     this.station.next(station)
 
