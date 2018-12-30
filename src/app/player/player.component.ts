@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChange
 import { Station } from '../radio-stations/station.model';
 import { StationPlaylistService } from '../station-playlist.service';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeWhile, filter } from 'rxjs/operators';
 import { Playlist } from '../radio-stations/playlist.model';
 
 @Component({
@@ -38,7 +38,9 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {
     this.station
       .pipe(
-        switchMap(({ playlist }) => this.stationPlaylistService.follow(playlist))
+        filter(() => !this.paused),
+
+        switchMap(({ playlist }) => this.stationPlaylistService.follow(playlist)),
       )
       .subscribe((playlist: Playlist) => {
         const firstSong = playlist[0]

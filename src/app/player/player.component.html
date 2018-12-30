@@ -10,7 +10,7 @@
     *ngIf="station"
     class="d-none"
     [volume]="volumeScaled"
-    [autoplay]="true"
+    [autoplay]="!paused"
     muted="muted"
     [src]="(station | async).stream"
   >

@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   playerVolume = 0
 
-  playerPaused = true
+  playerPaused = false
 
   station?: BehaviorSubject<Station | null>
 
@@ -45,6 +45,8 @@ export class AppComponent implements OnInit {
     const DOWN = 40
     const SPACE = 32
     const ESC = 27
+    const RIGHT = 39
+    const LEFT = 37
 
     switch (evt.keyCode) {
       case UP:
@@ -66,6 +68,14 @@ export class AppComponent implements OnInit {
       case ESC:
         this.playerVolume = 0
         break;
+
+      // case LEFT:
+      //   this.station.next(this.availableStations[Math.floor(Math.random() * 4)])
+      //   break;
+
+      // case RIGHT:
+      //   this.station.next(this.availableStations[Math.floor(Math.random() * 4)])
+      //   break;
     }
   }
 
