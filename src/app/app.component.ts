@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-  playerVolume = 0
+  playerVolume = 2
 
   playerPaused = false
 

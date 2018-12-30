@@ -33,13 +33,13 @@
   &.paused {
     .station-info {
       header {
-        background: darken($color: #CBCE3F, $amount: 20%);
-        color: lighten($color: #CBCE3F, $amount: 20%);
+        background: #46846A;
+        color: #EDE9F2;
       }
 
       p {
-        background: darken($color: #CBCE3F, $amount: 20%);
-        color: lighten($color: #CBCE3F, $amount: 20%);
+        background: #46846A;
+        color: #EDE9F2;
       }
     }
   }
