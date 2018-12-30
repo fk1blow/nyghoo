@@ -36,6 +36,10 @@ export class VolumeComponent implements OnInit {
     this.changed.emit(event.value)
   }
 
+  onUserChangeEnd() {
+    console.log('end???')
+  }
+
   ngOnInit() {
     this.sliderControl.setValue(this.start)
     this.volumeReady = true

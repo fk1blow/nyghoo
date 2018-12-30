@@ -3,13 +3,8 @@
   top: calc((100vh - 120px - 28px) / 4);
   left: 40px;
   height: calc((100vh - 120px - 28px) / 2);
-  padding-bottom: 8px;
-  padding-top: 8px;
-  transition: background .2s ease-out;
-
-  &:hover {
-    background: #46846A;
-  }
+  width: 60px;
+  background: #46846A;
 
   ::ng-deep {
     .volume-slider {
@@ -26,6 +21,9 @@
       }
 
       .ng5-slider-pointer {
+        width: 60px;
+        height: 40px;
+        left: -20px !important;
         border-radius: 0;
         background: transparent;
         box-shadow: none;
@@ -38,13 +36,13 @@
 
       .ng5-slider-model-value {
         left: -20px !important;
-        width: 44px;
-        height: 32px;
+        width: 60px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: bold;
         background: #CBCE3F;
       }
     }
