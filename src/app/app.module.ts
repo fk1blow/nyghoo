@@ -6,9 +6,8 @@ import {NgxElectronModule} from 'ngx-electron';
 
 import { AppComponent } from './app.component';
 import { PlayerModule } from './player/player.module';
-import { RadioStationsModule } from './radio-stations/radio-stations.module';
+import { ChannelsModule } from './channels/channels.module';
 import { WindowControlsComponent } from './window-controls/window-controls.component';
-import { StationsService } from './stations.service';
 import { StationPlaylistService } from './station-playlist.service'
 
 @NgModule({
@@ -21,9 +20,9 @@ import { StationPlaylistService } from './station-playlist.service'
     NgxElectronModule,
     HttpClientModule,
     PlayerModule,
-    RadioStationsModule
+    ChannelsModule
   ],
-  providers: [StationsService, StationPlaylistService],
+  providers: [StationPlaylistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,7 @@ import { timer, of, Observable } from 'rxjs';
 import { switchMap, map, mergeMap, catchError, pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { xml2json } from 'xml-js'
-import { Playlist } from './radio-stations/playlist.model';
+import { Playlist } from './channels/playlist.model';
 
 @Injectable({
   providedIn: 'root'

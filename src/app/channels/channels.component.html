@@ -1,15 +1,15 @@
-<div class="stations">
+<div class="stations" style="width: 100%; overflow-y: scroll;">
 
   <ul class="stations-list">
 
-    <li class="item" *ngFor="let station of stations">
+    <li class="item" *ngFor="let chan of channels">
       <button
-        [ngClass]="{ active: station.name === selectedStation.name }"
-        (click)="onChangeStation(station)"
+        [ngClass]="{ active: chan.id === selectedChannel.id }"
+        (click)="onChangeChannel(chan)"
         class="station-pic"
       >
         <img
-          [src]="station.pic.small"
+          [src]="chan.image"
           style="height: 80px; width: 80px;"
           class="img-responsive">
       </button>

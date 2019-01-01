@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
-import { Station } from '../radio-stations/station.model';
+import { Station } from '../channels/station.model';
 import { StationPlaylistService } from '../station-playlist.service';
 import { Observable } from 'rxjs';
 import { switchMap, takeWhile, filter } from 'rxjs/operators';
-import { Playlist } from '../radio-stations/playlist.model';
+import { Playlist } from '../channels/playlist.model';
 
 @Component({
   selector: 'ny-player',
@@ -36,15 +36,15 @@ export class PlayerComponent implements OnInit {
   constructor(private stationPlaylistService: StationPlaylistService) {}
 
   ngOnInit() {
-    this.station
-      .pipe(
-        filter(() => !this.paused),
-        switchMap(({ playlist }) => this.stationPlaylistService.follow(playlist)),
-      )
-      .subscribe((playlist: Playlist) => {
-        const firstSong = playlist[0]
-        this.currentPlaying = `${firstSong.artist.text} - ${firstSong.title.text}`
-      })
+    // this.station
+    //   .pipe(
+    //     filter(() => !this.paused),
+    //     switchMap(({ playlist }) => this.stationPlaylistService.follow(playlist)),
+    //   )
+    //   .subscribe((playlist: Playlist) => {
+    //     const firstSong = playlist[0]
+    //     this.currentPlaying = `${firstSong.artist.text} - ${firstSong.title.text}`
+    //   })
   }
 
   mouseWheelUpFunc(evt: any) {

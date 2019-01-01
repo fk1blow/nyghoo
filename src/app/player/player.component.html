@@ -5,7 +5,7 @@
  (mouseWheelDown)="mouseWheelDownFunc(event)"
 >
 
-  <audio
+  <!-- <audio
     #audioPlayer
     *ngIf="station"
     class="d-none"
@@ -13,16 +13,15 @@
     [autoplay]="true"
     muted="muted"
     src="http://localhost:3000/"
-  >
-    <!-- [src]="(station | async).stream" -->
+  > -->
     <!-- trick found on sw so that autoplay works (tested in latest chrome) -->
-    <!-- <source src="http://localhost:3000/" type="audio/mp3"> -->
+    <!-- <source src="http://localhost:3000/" type="audio/mp3">
 
     Your browser does not support the
     <code>audio</code> element.
-  </audio>
+  </audio> -->
 
-  <ny-volume
+  <!-- <ny-volume
     [start]="initialVolume"
     [value]="volume"
     (changed)="onVolumeChange($event)">
@@ -33,8 +32,8 @@
     [description]="(station | async).description"
     [pic]="(station | async).pic.big || (station | async).pic.small"
     [paused]="paused">
-  </ny-station>
+  </ny-station> -->
 
-  <footer class="now-playing text-center"><span>{{currentPlaying}}</span></footer>
+  <!-- <footer class="now-playing text-center"><span>{{currentPlaying}}</span></footer> -->
 
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Station } from './radio-stations/station.model';
-import { StationsService } from './stations.service';
+import { Station } from './channels/station.model';
+// import { StationsService } from './stations.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild('appMain') appMain: ElementRef;
 
-  constructor(private stationsService: StationsService) {}
+  // constructor(private stationsService: StationsService) {}
 
   // TODO changing the stream before pausing(or stopping) the player
   // causes a small(tick) sound distortion noticeable and annoying
@@ -34,9 +34,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.availableStations = this.stationsService.getAvailable()
-    this.appMain.nativeElement.focus()
-    this.station = new BehaviorSubject(this.availableStations[0])
+    // this.availableStations = this.stationsService.getAvailable()
+    // this.appMain.nativeElement.focus()
+    // this.station = new BehaviorSubject(this.availableStations[0])
 
     // let ws = new WebSocket('ws://localhost:3000')
     // ws.onmessage = (msg) => console.log('msg from ws: ', msg.data)

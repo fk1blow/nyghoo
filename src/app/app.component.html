@@ -11,10 +11,7 @@
     style="flex-grow: 1">
   </ny-player>
 
-  <ny-radio-stations
-    [stations]="availableStations"
-    (changed)="onStationChange($event)">
-  </ny-radio-stations>
+  <ny-channels (changed)="onStationChange($event)"></ny-channels>
 
 </main>
 
