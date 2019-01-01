@@ -1,4 +1,8 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const createServer = require('./src/server')
+
+// hmmmm
+createServer()
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
 
@@ -8,14 +12,14 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 1100, height: 700, resizable: false, frame: false })
+  win = new BrowserWindow({ width: 1100, height: 700, resizable: true, frame: false })
 
   // and load the index.html of the app.
   //win.loadFile('./dist/nyghoo/index.html')
   win.loadURL(`http://localhost:4200/index.html`);
 
   // Open the DevTools.
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -54,7 +58,7 @@ app.on('activate', () => {
 // FIX electron DOMException: play() failed because the user didn't interact with the document first
 app.commandLine.appendSwitch('--autoplay-policy','no-user-gesture-required')
 
-const ipc = require('electron').ipcMain
+const ipc = require('electron').ipcMain;
 
 ipc.on('quit-app', function (event, arg) {
   console.log('?')

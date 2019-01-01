@@ -10,12 +10,13 @@
     *ngIf="station"
     class="d-none"
     [volume]="volumeScaled"
-    [autoplay]="!paused"
+    [autoplay]="true"
     muted="muted"
-    [src]="(station | async).stream"
+    src="http://localhost:3000/"
   >
+    <!-- [src]="(station | async).stream" -->
     <!-- trick found on sw so that autoplay works (tested in latest chrome) -->
-    <source src="0.mp3" type="audio/mp3">
+    <!-- <source src="http://localhost:3000/" type="audio/mp3"> -->
 
     Your browser does not support the
     <code>audio</code> element.

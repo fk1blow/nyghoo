@@ -26,9 +26,7 @@ export class StationPlaylistService {
         switchMap(url =>
           timer(0, 30 * SEC).pipe(
             mergeMap(_ => this.fetchPlaylist(url)),
-
             map((playlistXml: string) => JSON.parse(xml2json(playlistXml, parserOpts))),
-
             pluck('songs', 'song')
           )
         )

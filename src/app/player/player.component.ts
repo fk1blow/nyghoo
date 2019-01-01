@@ -39,7 +39,6 @@ export class PlayerComponent implements OnInit {
     this.station
       .pipe(
         filter(() => !this.paused),
-
         switchMap(({ playlist }) => this.stationPlaylistService.follow(playlist)),
       )
       .subscribe((playlist: Playlist) => {

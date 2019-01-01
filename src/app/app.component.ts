@@ -10,9 +10,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-  playerVolume = 2
+  playerVolume = 0
 
-  playerPaused = false
+  playerPaused = true
 
   station?: BehaviorSubject<Station | null>
 
@@ -37,6 +37,9 @@ export class AppComponent implements OnInit {
     this.availableStations = this.stationsService.getAvailable()
     this.appMain.nativeElement.focus()
     this.station = new BehaviorSubject(this.availableStations[0])
+
+    // let ws = new WebSocket('ws://localhost:3000')
+    // ws.onmessage = (msg) => console.log('msg from ws: ', msg.data)
   }
 
   onKeyUp(evt: KeyboardEvent) {
