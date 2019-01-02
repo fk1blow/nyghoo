@@ -6,6 +6,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    line-height: initial;
     color: #EDE9F2;
     font-weight: bold;
   }
@@ -14,7 +15,7 @@
     span {
       display: inline-block;
       max-width: 100%;
-      line-height: 42px;
+      line-height: 36px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

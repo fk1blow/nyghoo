@@ -36,10 +36,6 @@ export class PlayerComponent implements OnInit {
   // constructor(private stationPlaylistService: StationPlaylistService) {}
 
   ngOnInit() {
-    this.channel.subscribe(r => {
-      console.log(r)
-      // console.log('this is the moment to change the source of the audioPlayer')
-    })
 
     // this.station
     //   .pipe(

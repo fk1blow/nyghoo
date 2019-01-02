@@ -11,7 +11,7 @@
     class="d-none"
     [volume]="volumeScaled"
     [autoplay]="true"
-    muted="muted"
+    [muted]="paused"
     src="http://localhost:3000/station/{{station.id}}"
   >
     <!-- trick found on sw so that autoplay works (tested in latest chrome) -->
@@ -21,18 +21,19 @@
     <code>audio</code> element.
   </audio>
 
-  <!-- <ny-volume
-    [start]="initialVolume"
-    [value]="volume"
-    (changed)="onVolumeChange($event)">
-  </ny-volume> -->
 
   <div class="columns col-gapless">
     <section class="column col-5">
+      <ny-volume
+        [start]="initialVolume"
+        [value]="volume"
+        (changed)="onVolumeChange($event)">
+      </ny-volume>
+
       <img *ngIf="channel | async as station" class="img-responsive" [src]="station.xlimage">
     </section>
 
-    <section class="column col-6 col-ml-auto station-info">
+    <section class="column col-6 col-ml-auto station-info" [ngClass]="{ paused: paused }">
       <header *ngIf="channel | async as station">
         <h1 class="station-info-title d-inline-block">{{station.title}}</h1>
         <p class="station-info-description">{{station.description}}</p>
@@ -41,17 +42,5 @@
       <ny-playlist [channel]="channel"></ny-playlist>
     </section>
   </div>
-
-  <!-- <section *ngIf="channel | async as channel">
-    <ny-station
-      [name]="channel.title"
-      [description]="channel.description"
-      [pic]="channel.largeimage"
-      [paused]="paused">
-    </ny-station>
-  </section> -->
-
-
-  <!-- <footer class="now-playing text-center"><span>{{currentPlaying}}</span></footer> -->
 
 </div>

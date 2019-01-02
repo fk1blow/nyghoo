@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   playerVolume = 2
 
-  playerPaused = true
+  playerPaused = false
 
   // station?: BehaviorSubject<Station | null>
   channel: Subject<Channel> = new Subject()
