@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { mergeMap, catchError, zip, merge, map, pluck, concat, switchMap, filter } from 'rxjs/operators';
 import { xml2json } from 'xml-js'
 import { ChannelsMetaService } from 'src/app/channels-meta.service';
-import { union, head } from 'lodash'
+import { head } from 'lodash'
 import { ChannelUpdate } from 'src/app/channels/channel-update.model';
 
 @Component({
@@ -63,11 +63,11 @@ export class PlaylistComponent implements OnInit {
         })
       )
       .subscribe((update: ChannelUpdate) => {
-        const updatedSong = update.data['StreamTitle']
-        const firstSong = head(this.playlist)
+        const songFromMetaPls: string = update.data['StreamTitle']
+        const songInCurrentPls: string = this.playlist[0]
 
-        if (firstSong !== updatedSong)
-          this.playlist.unshift(updatedSong)
+        if (songInCurrentPls !== songFromMetaPls)
+          this.playlist.unshift(songFromMetaPls)
       })
   }
 

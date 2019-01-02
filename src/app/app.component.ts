@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
 
   playerPaused = false
 
-  // station?: BehaviorSubject<Station | null>
   channel: Subject<Channel> = new Subject()
 
   availableStations?: Station[]
@@ -27,27 +26,17 @@ export class AppComponent implements OnInit {
 
   constructor(private channelsMeta: ChannelsMetaService) {}
 
-  // TODO changing the stream before pausing(or stopping) the player
-  // causes a small(tick) sound distortion noticeable and annoying
-
   onChannelChange(channel: Channel) {
     this.channel.next(channel)
-    // this.station.next(station)
 
-    // if (this.playerPaused) {
-    //   this.playerPaused = false
-    // }
+    if (this.playerPaused) {
+      this.playerPaused = false
+    }
   }
 
   ngOnInit() {
     this.channelsMeta
-    // this.availableStations = this.stationsService.getAvailable()
-    // this.appMain.nativeElement.focus()
-    // this.station = new BehaviorSubject(this.availableStations[0])
-    // this.channel = new BehaviorSubject(this.availableStations[0])
-
-    // let ws = new WebSocket('ws://localhost:3000')
-    // ws.onmessage = (msg) => console.log('msg from ws: ', msg.data)
+    this.appMain.nativeElement.focus()
   }
 
   onKeyUp(evt: KeyboardEvent) {
