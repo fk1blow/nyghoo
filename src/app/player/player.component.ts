@@ -1,8 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
-import { Station } from '../channels/station.model';
 import { Observable } from 'rxjs';
-import { switchMap, takeWhile, filter } from 'rxjs/operators';
-import { Playlist } from '../channels/playlist.model';
 import { Channel } from '../channels/channel.model';
 
 @Component({
@@ -11,8 +8,6 @@ import { Channel } from '../channels/channel.model';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-
-  currentPlaying?: string
 
   @Input() channel: Observable<Channel | null>
 
@@ -33,10 +28,7 @@ export class PlayerComponent implements OnInit {
     return this.volume
   }
 
-  // constructor(private stationPlaylistService: StationPlaylistService) {}
-
   ngOnInit() {
-
     // this.station
     //   .pipe(
     //     filter(() => !this.paused),
@@ -60,7 +52,6 @@ export class PlayerComponent implements OnInit {
     this.volumeChanged.emit(volume)
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges(changes: SimpleChanges) {
     const {paused, station} = changes
 

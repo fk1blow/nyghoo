@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
 
   playerVolume = 2
 
+  playerVolumePrev: number | null = null
+
   playerPaused = false
 
   // station?: BehaviorSubject<Station | null>
@@ -62,12 +64,14 @@ export class AppComponent implements OnInit {
 
     switch (evt.keyCode) {
       case UP:
+        this.playerVolumePrev = null
         if (this.playerVolume < 10) {
           this.playerVolume = this.playerVolume + 1
         }
         break;
 
       case DOWN:
+        this.playerVolumePrev = null
         if (this.playerVolume > 0) {
           this.playerVolume = this.playerVolume - 1
         }
@@ -78,7 +82,13 @@ export class AppComponent implements OnInit {
         break;
 
       case ESC:
-        this.playerVolume = 0
+        if (this.playerVolumePrev !== null) {
+          this.playerVolume = this.playerVolumePrev
+          this.playerVolumePrev = null
+        } else {
+          this.playerVolumePrev = this.playerVolume
+          this.playerVolume = 0
+        }
         break;
 
       // case LEFT:
