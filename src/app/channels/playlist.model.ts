@@ -1,8 +1,8 @@
-interface Item {
+export interface Item {
   text: string
 }
 
-interface Song {
+export interface Song {
   artist: Item
   album: Item
   title: Item

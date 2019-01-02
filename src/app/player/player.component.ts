@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
 import { Station } from '../channels/station.model';
-import { StationPlaylistService } from '../station-playlist.service';
 import { Observable } from 'rxjs';
 import { switchMap, takeWhile, filter } from 'rxjs/operators';
 import { Playlist } from '../channels/playlist.model';
+import { Channel } from '../channels/channel.model';
 
 @Component({
   selector: 'ny-player',
@@ -14,7 +14,7 @@ export class PlayerComponent implements OnInit {
 
   currentPlaying?: string
 
-  @Input() station: Observable<Station>
+  @Input() channel: Observable<Channel | null>
 
   @Input() volume: number
 
@@ -33,9 +33,14 @@ export class PlayerComponent implements OnInit {
     return this.volume
   }
 
-  constructor(private stationPlaylistService: StationPlaylistService) {}
+  // constructor(private stationPlaylistService: StationPlaylistService) {}
 
   ngOnInit() {
+    this.channel.subscribe(r => {
+      console.log(r)
+      // console.log('this is the moment to change the source of the audioPlayer')
+    })
+
     // this.station
     //   .pipe(
     //     filter(() => !this.paused),

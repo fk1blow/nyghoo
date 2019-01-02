@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Station } from './channels/station.model';
-// import { StationsService } from './stations.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Channel } from './channels/channel.model';
+import { filter } from 'rxjs/operators';
+import { ChannelsMetaService } from './channels-meta.service';
 
 @Component({
   selector: 'ny-root',
@@ -10,33 +12,37 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-  playerVolume = 0
+  playerVolume = 2
 
   playerPaused = true
 
-  station?: BehaviorSubject<Station | null>
+  // station?: BehaviorSubject<Station | null>
+  channel: Subject<Channel> = new Subject()
 
   availableStations?: Station[]
 
   @ViewChild('appMain') appMain: ElementRef;
 
-  // constructor(private stationsService: StationsService) {}
+  constructor(private channelsMeta: ChannelsMetaService) {}
 
   // TODO changing the stream before pausing(or stopping) the player
   // causes a small(tick) sound distortion noticeable and annoying
 
-  onStationChange(station: Station) {
-    this.station.next(station)
+  onChannelChange(channel: Channel) {
+    this.channel.next(channel)
+    // this.station.next(station)
 
-    if (this.playerPaused) {
-      this.playerPaused = false
-    }
+    // if (this.playerPaused) {
+    //   this.playerPaused = false
+    // }
   }
 
   ngOnInit() {
+    this.channelsMeta
     // this.availableStations = this.stationsService.getAvailable()
     // this.appMain.nativeElement.focus()
     // this.station = new BehaviorSubject(this.availableStations[0])
+    // this.channel = new BehaviorSubject(this.availableStations[0])
 
     // let ws = new WebSocket('ws://localhost:3000')
     // ws.onmessage = (msg) => console.log('msg from ws: ', msg.data)

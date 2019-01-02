@@ -15,17 +15,21 @@ export class ChannelsService {
       .pipe(
         map((response: { channels: Array<{}> }) => response.channels),
 
-        map((channels: any[]) => channels.map(channel => ({
-          id: channel.id,
-          title: channel.title,
-          description: channel.description,
-          dj: channel.dj,
-          genre: channel.genre,
-          image: channel.image,
-          largeimage: channel.largeimage,
-          xlimage: channel.xlimage,
-          listeners: channel.listeners
-        })))
+        map((channels: any[]) => {
+          return channels
+            // do not like
+            .map(channel => ({
+              id: channel.id,
+              title: channel.title,
+              description: channel.description,
+              dj: channel.dj,
+              genre: channel.genre,
+              image: channel.image,
+              largeimage: channel.largeimage,
+              xlimage: channel.xlimage,
+              listeners: channel.listeners
+            }))
+        })
       )
   }
 

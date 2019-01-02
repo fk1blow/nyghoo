@@ -3,79 +3,76 @@ const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 
-const app = express();
 
-//initialize a simple http server
-const server = http.createServer(app);
-
-//initialize the WebSocket server instance
-const wss = new WebSocket.Server({ server });
 
 module.exports = function() {
-  new Promise((resolve, reject) => {
+  const app = express();
 
-    wss.on('connection', (ws) => {
-      resolve(ws);
+  // Add headers
+  app.use(function (req, res, next) {
 
-      ws.on('message', (message) => {
-          console.log('received: %s', message);
-          ws.send(`Hello, you sent -> ${message}`);
-      });
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
 
-      ws.send('Hi there, I am a WebSocket server');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+  });
+
+  //initialize a simple http server
+  const server = http.createServer(app);
+
+  //initialize the WebSocket server instance
+  const wss = new WebSocket.Server({ server });
+
+  const wsConnections = {}
+  let wsCounter = 0
+
+  wss.on('connection', (ws) => {
+    wsConnections[++wsCounter] = ws
+
+    ws.on('error', () => {
+      delete wsConnections[wsCounter]
     });
+  });
 
-  })
-    .then(ws => {
-      // Add headers
-      app.use(function (req, res, next) {
 
-        // Website you wish to allow to connect
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  app.get('/station/:id', (req, res) => {
+    const streamUrl = `http://ice3.somafm.com/${req.params.id}-128-mp3`
 
-        // Request methods you wish to allow
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    icy.get(streamUrl, function (icyres) {
+      icyres.on('metadata', function (metadata) {
+        var parsed = icy.parse(metadata);
 
-        // Request headers you wish to allow
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-        // Set to true if you need the website to include cookies in the requests sent
-        // to the API (e.g. in case you use sessions)
-        res.setHeader('Access-Control-Allow-Credentials', true);
-
-        // Pass to next layer of middleware
-        next();
+        for(let id in wsConnections) {
+          let conn = wsConnections[id]
+          conn.send(JSON.stringify({
+            room: 'ChannelMeta',
+            data: parsed,
+            station: req.params.id
+          }))
+        }
       });
 
-      app.get('/station/:id', (req, res) => {
-        // console.log(req.params)
-        // ws.send(req.params.id)
-        // res.send('foff')
+      res.set('content-type', 'audio/mp3');
 
-        const streamUrl = `http://ice3.somafm.com/${req.params.id}-128-mp3`
-        ws.send(`start stream for ${streamUrl}`)
+      icyres.pipe(res)
 
-        icy.get(streamUrl, function (icyres) {
-          icyres.on('metadata', function (metadata) {
-            var parsed = icy.parse(metadata);
-            // console.error('parsed: ', parsed);
-            // console.log(typeof parsed)
-            // console.log('metadata: ', metadata)
-            // ws.send('metadata?')
-            ws.send(JSON.stringify(parsed))
-          });
-
-          res.set('content-type', 'audio/mp3');
-
-          icyres.pipe(res)
-
-          req.on(['close', 'end'], () => {
-            res.end()
-          })
-        })
+      req.on(['close', 'end'], () => {
+        res.end()
       })
-
     })
+  })
+
 
   //start our server
   server.listen(process.env.PORT || 3000, () => {

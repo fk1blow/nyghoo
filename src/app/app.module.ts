@@ -7,8 +7,8 @@ import {NgxElectronModule} from 'ngx-electron';
 import { AppComponent } from './app.component';
 import { PlayerModule } from './player/player.module';
 import { ChannelsModule } from './channels/channels.module';
+import { ChannelsMetaService } from './channels-meta.service'
 import { WindowControlsComponent } from './window-controls/window-controls.component';
-import { StationPlaylistService } from './station-playlist.service'
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { StationPlaylistService } from './station-playlist.service'
     PlayerModule,
     ChannelsModule
   ],
-  providers: [StationPlaylistService],
+  providers: [ChannelsMetaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

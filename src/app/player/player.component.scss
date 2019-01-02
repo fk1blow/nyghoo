@@ -7,8 +7,8 @@
 .radio {
   height: 100%;
   width: 100%;
-  max-width: 600px;
-  padding: 100px 0;
+  // max-width: 600px;
+  padding: 40px;
   margin: 0 auto;
   flex-grow: 1;
   display: flex;
@@ -22,6 +22,38 @@
     span {
       padding: 0 10px 2px;
       border-bottom: 4px solid #CBCE3F;
+    }
+  }
+
+  .station-info {
+    &-title {
+      padding: 4px 14px 4px 14px;
+      margin-bottom: 20px;
+      font-size: 32px;
+      background: #CBCE3F;
+      font-weight: 400;
+      transition: all .2s ease;
+    }
+
+    &-description {
+      padding: 10px 14px 10px 14px;
+      font-size: 18px;
+      background: #CBCE3F;
+      transition: all .2s ease;
+    }
+  }
+
+  &.paused {
+    .station-info {
+      header {
+        background: #46846A;
+        color: #EDE9F2;
+      }
+
+      p {
+        background: #46846A;
+        color: #EDE9F2;
+      }
     }
   }
 }

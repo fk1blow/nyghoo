@@ -23,6 +23,7 @@
     "core-js": "^2.5.4",
     "electron-packager": "^13.0.1",
     "icy": "^2.1.0",
+    "lodash": "^4.17.11",
     "ng5-slider": "^1.1.11",
     "ngx-electron": "^2.0.0",
     "rxjs": "~6.3.3",

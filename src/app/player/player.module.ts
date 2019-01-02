@@ -7,6 +7,7 @@ import { PlayerComponent } from './player.component';
 import { StationComponent } from './station/station.component';
 import { VolumeComponent } from './volume/volume.component';
 import { MouseWheelDirective } from '../mousewheel.directive';
+import { PlaylistComponent } from './playlist/playlist.component'
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { MouseWheelDirective } from '../mousewheel.directive';
     MouseWheelDirective,
     PlayerComponent,
     StationComponent,
-    VolumeComponent
+    VolumeComponent,
+    PlaylistComponent
   ],
   imports: [
     CommonModule,

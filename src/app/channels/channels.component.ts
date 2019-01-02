@@ -20,8 +20,10 @@ export class ChannelsComponent implements OnInit {
   ngOnInit() {
     this.channelsService.getChannels()
       .subscribe((channels: Channel[]) => {
-        this.channels = channels
+        this.channels = channels.sort(
+          (a, b) => parseInt(a.listeners) < parseInt(b.listeners) ? 0 : -1)
         this.selectedChannel = channels[0]
+        this.changed.emit(this.selectedChannel)
       })
   }
 

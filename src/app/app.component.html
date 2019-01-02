@@ -5,13 +5,13 @@
 
   <ny-player
     (volumeChanged)="onPlayerVolumeChange($event)"
-    [station]="station"
+    [channel]="channel"
     [volume]="playerVolume"
     [paused]="playerPaused"
     style="flex-grow: 1">
   </ny-player>
 
-  <ny-channels (changed)="onStationChange($event)"></ny-channels>
+  <ny-channels (changed)="onChannelChange($event)"></ny-channels>
 
 </main>
 
