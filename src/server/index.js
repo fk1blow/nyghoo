@@ -38,9 +38,15 @@ module.exports = function() {
   let wsCounter = 0
 
   wss.on('connection', (ws) => {
-    wsConnections[++wsCounter] = ws
+    ws.on('open', () => {
+      wsConnections[++wsCounter] = ws
+    })
 
     ws.on('error', () => {
+      delete wsConnections[wsCounter]
+    });
+
+    ws.on('close', () => {
       delete wsConnections[wsCounter]
     });
   });
@@ -55,6 +61,8 @@ module.exports = function() {
 
         for(let id in wsConnections) {
           let conn = wsConnections[id]
+          if (conn.readyState !== WebSocket.OPEN) return;
+
           conn.send(JSON.stringify({
             room: 'ChannelMeta',
             data: parsed,
@@ -79,35 +87,3 @@ module.exports = function() {
     console.log(`Server started on port ${server.address().port} :)`);
   });
 }
-
-// const app = express()
-// const port = 3000
-
-// // URL to a known ICY stream
-// var url = 'http://ice3.somafm.com/groovesalad-128-mp3';
-
-// app.get('/', (req, res) => {
-//   // connect to the remote stream
-//   icy.get(url, function (icyres) {
-
-//     // log any "metadata" events that happen
-//     icyres.on('metadata', function (metadata) {
-//       var parsed = icy.parse(metadata);
-//       console.error('parsed: ', parsed);
-//     });
-
-//     res.set('content-type', 'audio/mp3');
-
-//     // send the (audio) stream to express' response
-//     icyres.pipe(res)
-
-//     // end request to express
-//     req.on(['close', 'end'], () => {
-//       res.end()
-//     })
-//   });
-
-// })
-
-// console.log(`listening on port ${port}`)
-// app.listen(port)
