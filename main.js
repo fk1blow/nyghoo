@@ -15,7 +15,7 @@ function createWindow () {
   win = new BrowserWindow({ width: 1100, height: 700, resizable: true, frame: false })
 
   // and load the index.html of the app.
-  //win.loadFile('./dist/nyghoo/index.html')
+  // win.loadFile('./dist/nyghoo/index.html')
   win.loadURL(`http://localhost:4200/index.html`);
 
   // Open the DevTools.
