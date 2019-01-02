@@ -61,6 +61,7 @@ module.exports = function() {
 
         for(let id in wsConnections) {
           let conn = wsConnections[id]
+          // TODO this is stoopid and it has to change
           if (conn.readyState !== WebSocket.OPEN) return;
 
           conn.send(JSON.stringify({
