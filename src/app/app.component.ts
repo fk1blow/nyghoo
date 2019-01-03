@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Station } from './channels/station.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Channel } from './channels/channel.model';
-import { filter } from 'rxjs/operators';
 import { ChannelsMetaService } from './channels-meta.service';
 
 @Component({
@@ -35,7 +34,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.channelsMeta
+    // this.channelsMeta
     this.appMain.nativeElement.focus()
   }
 

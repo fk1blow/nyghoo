@@ -1,11 +1,6 @@
-<div
- class="radio"
- mouseWheel
- (mouseWheelUp)="mouseWheelUpFunc(event)"
- (mouseWheelDown)="mouseWheelDownFunc(event)"
->
+<div class="radio">
 
-  <audio
+  <!-- <audio
     #audioPlayer
     *ngIf="channel | async as channel"
     class="d-none"
@@ -13,24 +8,28 @@
     [autoplay]="true"
     [muted]="paused"
   >
-    <!-- <source src="http://localhost:3000/audio/somafm/{{channel.id}}" type="audio/mp3"> -->
-  </audio>
+    <source src="http://localhost:3000/audio/somafm/{{channel.id}}" type="audio/mp3">
+  </audio> -->
 
   <div class="columns col-gapless">
-    <section class="column col-5">
+    <section class="column col-6 image-section">
       <ny-volume
         [start]="initialVolume"
         [value]="volume"
         (changed)="onVolumeChange($event)">
       </ny-volume>
 
-      <img *ngIf="channel | async as station" class="img-responsive" [src]="station.xlimage">
+      <img
+        *ngIf="channel | async as station"
+        class="img-responsive station-image"
+        [src]="station.largeimage">
     </section>
 
-    <section class="column col-6 col-ml-auto station-info" [ngClass]="{ paused: paused }">
+    <!-- [ngClass]="{ paused: paused }" -->
+    <section class="column col-6 info-section">
       <header *ngIf="channel | async as station">
-        <h1 class="station-info-title">{{station.title}}</h1>
-        <p class="station-info-description">{{station.description}}</p>
+        <h1 class="station-title">{{station.title}}</h1>
+        <p class="station-description">{{station.description}}</p>
       </header>
 
       <ny-playlist [channel]="channel"></ny-playlist>

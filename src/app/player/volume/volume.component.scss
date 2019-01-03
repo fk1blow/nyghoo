@@ -1,8 +1,9 @@
 .volume-control {
   position: absolute;
-  top: calc((100vh - 40) / 4);
+  top: 0;
   left: 0px;
-  height: calc((100vh - 120px - 28px) / 2);
+  height: 300px;
+  top: calc(50% - 150px);
   width: 60px;
   // background: #46846A;
 

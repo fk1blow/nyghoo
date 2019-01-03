@@ -14,12 +14,13 @@
   &-item {
     span {
       display: inline-block;
+      padding: 0 14px;
       max-width: 100%;
       line-height: 36px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      border-bottom: 4px solid;
+      border-bottom: 3px solid;
       border-color: #CBCE3F;
     }
   }

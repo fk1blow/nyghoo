@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Channel } from '../channels/channel.model';
 
@@ -30,8 +30,6 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.channel.subscribe(r => console.log(r))
-
     // this.station
     //   .pipe(
     //     filter(() => !this.paused),
@@ -55,29 +53,31 @@ export class PlayerComponent implements OnInit {
     this.volumeChanged.emit(volume)
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('here be problems')
+  // do not want
 
-    const {paused, station} = changes
+  // ngOnChanges(changes: SimpleChanges) {
+  //   console.log('here be problems')
 
-    if (station && !station.firstChange) {
-      // if it's muted and you know it...
-      this.audioPlayer.nativeElement.play()
-    }
+  //   const {paused, station} = changes
 
-    // if (paused && !paused.firstChange && this.audioPlayer) {
-    if (paused && !paused.firstChange) {
-      if (paused.currentValue && paused.currentValue === true) {
-        this.audioPlayer.nativeElement.pause()
+  //   if (station && !station.firstChange) {
+  //     // if it's muted and you know it...
+  //     this.audioPlayer.nativeElement.play()
+  //   }
 
-        this.audioPlayer.nativeElement.src = ''
+  //   // if (paused && !paused.firstChange && this.audioPlayer) {
+  //   if (paused && !paused.firstChange) {
+  //     if (paused.currentValue && paused.currentValue === true) {
+  //       this.audioPlayer.nativeElement.pause()
 
-        // this.audioPlayer.nativeElement.unload()
-      } else {
-        this.audioPlayer.nativeElement.load()
-        this.audioPlayer.nativeElement.src = 'http://localhost:3000/audio/somafm/groovesalad'
-      }
-    }
-  }
+  //       this.audioPlayer.nativeElement.src = ''
+
+  //       // this.audioPlayer.nativeElement.unload()
+  //     } else {
+  //       this.audioPlayer.nativeElement.load()
+  //       this.audioPlayer.nativeElement.src = 'http://localhost:3000/audio/somafm/groovesalad'
+  //     }
+  //   }
+  // }
 
 }

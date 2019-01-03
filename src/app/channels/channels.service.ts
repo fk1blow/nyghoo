@@ -13,23 +13,7 @@ export class ChannelsService {
     return this.http
       .get('http://api.somafm.com/channels.json')
       .pipe(
-        map((response: { channels: Array<{}> }) => response.channels),
-
-        map((channels: any[]) => {
-          return channels
-            // do not like
-            .map(channel => ({
-              id: channel.id,
-              title: channel.title,
-              description: channel.description,
-              dj: channel.dj,
-              genre: channel.genre,
-              image: channel.image,
-              largeimage: channel.largeimage,
-              xlimage: channel.xlimage,
-              listeners: channel.listeners
-            }))
-        })
+        map((response: { channels: Array<{}> }) => response.channels as Channel[])
       )
   }
 

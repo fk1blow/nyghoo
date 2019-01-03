@@ -21,7 +21,7 @@ export class ChannelsComponent implements OnInit {
     this.channelsService.getChannels()
       .subscribe((channels: Channel[]) => {
         this.channels = channels.sort(
-          (a, b) => parseInt(a.listeners) < parseInt(b.listeners) ? 0 : -1)
+          (a, b) => parseInt(a.listeners, 10) < parseInt(b.listeners, 10) ? 0 : -1)
         this.selectedChannel = channels[0]
         this.changed.emit(this.selectedChannel)
       })
