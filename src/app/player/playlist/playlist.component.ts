@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Channel } from 'src/app/channels/channel.model';
-import { Observable, of, interval } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { mergeMap, catchError, zip, merge, map, pluck, concat, switchMap, filter } from 'rxjs/operators';
+import { mergeMap, catchError, map, pluck, switchMap, filter } from 'rxjs/operators';
 import { xml2json } from 'xml-js'
 import { ChannelsMetaService } from 'src/app/channels-meta.service';
-import { head } from 'lodash'
 import { ChannelUpdate } from 'src/app/channels/channel-update.model';
 
 @Component({
@@ -17,7 +16,7 @@ export class PlaylistComponent implements OnInit {
 
   @Input() channel: Observable<Channel>
 
-  playlist: any[] = []
+  private playlist: any[] = []
 
   constructor(private http: HttpClient, private channelMeta: ChannelsMetaService) { }
 
