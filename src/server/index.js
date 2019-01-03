@@ -43,8 +43,6 @@ module.exports = function() {
   app.get('/audio/:station_id/:channel_id', (req, res) => {
     const streamUrl = `http://ice3.somafm.com/${req.params.channel_id}-128-mp3`
 
-    // TODO add radiozora icy meta parser
-
     icy.get(streamUrl, function (icyres) {
       icyres.on('metadata', function (metadata) {
         Object.keys(wsConnections)
@@ -63,7 +61,21 @@ module.exports = function() {
 
       icyres.pipe(res)
 
-      req.on(['close', 'end'], () => res.end())
+      req.on('close', () => {
+        icyres.end()
+        res.end()
+      })
+
+      req.on('end', () => {
+        icyres.end()
+        res.end()
+      })
+
+      req.on('error', () => {
+        icyres.end()
+        res.end()
+      })
+
     })
   })
 

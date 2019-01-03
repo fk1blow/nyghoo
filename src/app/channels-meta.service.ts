@@ -22,6 +22,9 @@ export class ChannelsMetaService {
 
     ws.addEventListener('error', (err) => this.updates$.error(err))
 
-    ws.addEventListener('close', () => this.updates$.complete())
+    ws.addEventListener('close', () => {
+      console.log('ws closing?')
+      this.updates$.complete()
+    })
   }
 }

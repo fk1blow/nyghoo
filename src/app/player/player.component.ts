@@ -14,6 +14,7 @@ export class PlayerComponent implements OnInit {
   @Input() volume: number
 
   @Input() paused: boolean
+  // @Input() paused: Observable<boolean>
 
   @Output() volumeChanged = new EventEmitter<number>();
 
@@ -29,6 +30,8 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.channel.subscribe(r => console.log(r))
+
     // this.station
     //   .pipe(
     //     filter(() => !this.paused),
@@ -53,6 +56,8 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log('here be problems')
+
     const {paused, station} = changes
 
     if (station && !station.firstChange) {
@@ -60,11 +65,17 @@ export class PlayerComponent implements OnInit {
       this.audioPlayer.nativeElement.play()
     }
 
+    // if (paused && !paused.firstChange && this.audioPlayer) {
     if (paused && !paused.firstChange) {
       if (paused.currentValue && paused.currentValue === true) {
         this.audioPlayer.nativeElement.pause()
+
+        this.audioPlayer.nativeElement.src = ''
+
+        // this.audioPlayer.nativeElement.unload()
       } else {
         this.audioPlayer.nativeElement.load()
+        this.audioPlayer.nativeElement.src = 'http://localhost:3000/audio/somafm/groovesalad'
       }
     }
   }

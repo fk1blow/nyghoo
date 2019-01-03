@@ -7,14 +7,13 @@
 
   <audio
     #audioPlayer
-    *ngIf="channel | async as station"
+    *ngIf="channel | async as channel"
     class="d-none"
     [volume]="volumeScaled"
     [autoplay]="true"
     [muted]="paused"
-    src="http://localhost:3000/audio/somafm/{{station.id}}"
   >
-    <source src="0.mp3" type="audio/mp3">
+    <!-- <source src="http://localhost:3000/audio/somafm/{{channel.id}}" type="audio/mp3"> -->
   </audio>
 
   <div class="columns col-gapless">
