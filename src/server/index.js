@@ -52,7 +52,7 @@ module.exports = function() {
             conn.send(JSON.stringify({
               room: 'ChannelMeta',
               data: icy.parse(metadata),
-              station: req.params.id
+              station: req.params.channel_id
             }))
           })
       });
