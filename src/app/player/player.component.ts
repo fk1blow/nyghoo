@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, SimpleChanges, ElementRef, OnChanges } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, BehaviorSubject, combineLatest } from 'rxjs';
 import { Channel } from '../channels/channel.model';
+import { filter, mergeMap, scan, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'ny-player',
@@ -9,75 +10,148 @@ import { Channel } from '../channels/channel.model';
 })
 export class PlayerComponent implements OnInit {
 
-  @Input() channel: Observable<Channel | null>
+  audio: HTMLAudioElement = new Audio()
 
-  @Input() volume: number
+  sliderValue = 0
 
-  @Input() paused: boolean
-  // @Input() paused: Observable<boolean>
+  unmuteVolume: number | undefined = undefined
 
-  @Output() volumeChanged = new EventEmitter<number>();
+  @Input() channel: BehaviorSubject<Channel | null>
+
+  @Input() volume: Observable<'Increase' | 'Decrease'>
+
+  @Input() paused: BehaviorSubject<boolean>
+
+  @Input() toggleMute: Observable<boolean>
+
+  @Input() startVolume = 2
 
   @ViewChild('audioPlayer') audioPlayer: ElementRef;
 
-  get volumeScaled() {
-    // cannot assume that volume will always hold at least zero
-    return (this.volume <= 0) ? 0 : this.volume / 10
-  }
-
-  get initialVolume() {
-    return this.volume
-  }
-
   ngOnInit() {
-    // this.station
-    //   .pipe(
-    //     filter(() => !this.paused),
-    //     switchMap(({ playlist }) => this.stationPlaylistService.follow(playlist)),
-    //   )
-    //   .subscribe((playlist: Playlist) => {
-    //     const firstSong = playlist[0]
-    //     this.currentPlaying = `${firstSong.artist.text} - ${firstSong.title.text}`
+    this.audio.volume = (this.startVolume > 0 ? this.startVolume / 10 : 0)
+
+    this.sliderValue = this.startVolume
+
+    // channel and paused changes
+    const playerChanges = combineLatest(this.paused, this.channel)
+
+    // player gets paused
+    // playerChanges.pipe(
+    //   map(val => val[0]),
+    //   distinctUntilChanged(),
+    //   filter(paused => paused === true)
+    // )
+    //   .subscribe(() => {
+    //     console.log('g')
+    //     this.audio.pause()
+    //     this.audio.src = ''
     //   })
-  }
 
-  mouseWheelUpFunc(evt: any) {
-    console.log(evt)
-  }
+    // channel was changed and should play
+    // playerChanges.pipe(
+    //   filter((val) => val[0] === false),
+    // )
+    //   .subscribe((val) => {
+    //     this.audio.src = `http://localhost:3000/audio/somafm/${val[1].id}`
+    //     this.audio.play()
+    //   })
 
-  mouseWheelDownFunc(evt: any) {
-    console.log(evt)
+    // channel was changed and should play
+    // playerChanges.pipe(
+    //   filter((val) => val[0] === false),
+    //   map((val) => val[1]),
+    //   distinctUntilChanged()
+    // )
+    //   .subscribe((val) => {
+    //     console.log('xxx')
+    //     // this.audio.src = `http://localhost:3000/audio/somafm/${val.id}`
+    //     // this.audio.play()
+    //   })
+
+    // it depends too much on the sequence of the observables...
+
+    this.channel.subscribe(r => {
+      console.log(r)
+    })
+
+    console.log(this.channel.value)
+
+    this.paused.pipe(
+      filter((val) => val === true),
+      // distinctUntilChanged()
+    )
+      .subscribe((val) => {
+        console.log('yyy')
+        this.audio.src = ''
+        this.audio.pause()
+        // this.audio.src = `http://localhost:3000/audio/somafm/${val.id}`
+        // this.audio.play()
+      })
+
+      this.paused.pipe(
+        filter((val) => val === false),
+        map(() => {
+          // console.log(this.channel)
+          return this.channel.value
+        })
+      )
+        .subscribe((chan) => {
+          console.log(chan)
+
+          // this.audio.src = `http://localhost:3000/audio/somafm/${chan.id}`
+          // this.audio.play()
+        })
+
+
+    // volume changes
+
+    this.volume.pipe(
+      filter(v => v === 'Increase')
+    )
+      .subscribe(v => {
+        const scaled = this.audio.volume * 10
+
+        if (scaled < 10) {
+          this.audio.volume = (scaled + 1) / 10
+          this.sliderValue = scaled + 1
+          this.unmuteVolume = undefined
+        }
+      })
+
+    this.volume.pipe(
+      filter(v => v === 'Decrease')
+    )
+      .subscribe(v => {
+        const scaled = this.audio.volume * 10
+
+        if (scaled > 0) {
+          this.audio.volume = (scaled - 1) / 10
+          this.sliderValue = scaled - 1
+          this.unmuteVolume = undefined
+        }
+      })
+
+    // mute changes
+
+    this.toggleMute.subscribe(() => {
+      const isMuted = !(this.audio.volume > 0)
+
+      if (isMuted && this.unmuteVolume) {
+        this.audio.volume = this.unmuteVolume
+        this.sliderValue = this.audio.volume * 10
+        this.unmuteVolume = undefined
+      } else {
+        this.unmuteVolume = this.audio.volume
+        this.audio.volume = 0
+        this.sliderValue = 0
+      }
+    })
   }
 
   onVolumeChange(volume: number) {
-    this.volumeChanged.emit(volume)
+    this.audio.volume = volume / 10
+    this.unmuteVolume = undefined
   }
-
-  // do not want
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log('here be problems')
-
-  //   const {paused, station} = changes
-
-  //   if (station && !station.firstChange) {
-  //     // if it's muted and you know it...
-  //     this.audioPlayer.nativeElement.play()
-  //   }
-
-  //   // if (paused && !paused.firstChange && this.audioPlayer) {
-  //   if (paused && !paused.firstChange) {
-  //     if (paused.currentValue && paused.currentValue === true) {
-  //       this.audioPlayer.nativeElement.pause()
-
-  //       this.audioPlayer.nativeElement.src = ''
-
-  //       // this.audioPlayer.nativeElement.unload()
-  //     } else {
-  //       this.audioPlayer.nativeElement.load()
-  //       this.audioPlayer.nativeElement.src = 'http://localhost:3000/audio/somafm/groovesalad'
-  //     }
-  //   }
-  // }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Channel } from 'src/app/channels/channel.model';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { mergeMap, catchError, map, pluck, switchMap, filter } from 'rxjs/operators';
 import { xml2json } from 'xml-js'
@@ -14,7 +14,7 @@ import { ChannelUpdate } from 'src/app/channels/channel-update.model';
 })
 export class PlaylistComponent implements OnInit {
 
-  @Input() channel: Observable<Channel>
+  @Input() channel: BehaviorSubject<Channel | null>
 
   private playlist: any[] = []
 
@@ -30,6 +30,8 @@ export class PlaylistComponent implements OnInit {
 
     // when the 'channel' emits, fetch the songs for this stations
     this.channel.pipe(
+      filter(chan => chan !== null),
+
       map((chan: Channel) => chan.id),
 
       mergeMap((id: string) =>
@@ -54,6 +56,8 @@ export class PlaylistComponent implements OnInit {
     // and modify the `playlist` accordingly
     this.channel
       .pipe(
+        filter(chan => chan !== null),
+
         map((chan: Channel) => chan.id),
 
         switchMap((id: string) => {
@@ -65,8 +69,9 @@ export class PlaylistComponent implements OnInit {
         const songFromMetaPls: string = update.data['StreamTitle']
         const songInCurrentPls: string = this.playlist[0]
 
-        if (songInCurrentPls !== songFromMetaPls)
+        if (songInCurrentPls !== songFromMetaPls) {
           this.playlist.unshift(songFromMetaPls)
+        }
       })
   }
 

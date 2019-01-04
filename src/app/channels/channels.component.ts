@@ -9,11 +9,13 @@ import { Channel } from './channel.model';
 })
 export class ChannelsComponent implements OnInit {
 
-  selectedChannel?: Channel
-
   channels?: Channel[]
 
+  @Input() selected: Channel
+
   @Output() changed = new EventEmitter<Channel>();
+
+  @Output() loaded = new EventEmitter<Channel[]>();
 
   constructor(private channelsService: ChannelsService) {}
 
@@ -22,18 +24,15 @@ export class ChannelsComponent implements OnInit {
       .subscribe((channels: Channel[]) => {
         this.channels = channels.sort(
           (a, b) => parseInt(a.listeners, 10) < parseInt(b.listeners, 10) ? 0 : -1)
-        this.selectedChannel = channels[0]
-        this.changed.emit(this.selectedChannel)
+        this.loaded.emit(channels)
       })
   }
 
   onChangeChannel(channel: Channel) {
-    if (this.selectedChannel && this.selectedChannel.id === channel.id) {
+    if (this.selected && this.selected.id === channel.id) {
       return;
     }
-
-    this.selectedChannel = channel
-    this.changed.emit(this.selectedChannel)
+    this.changed.emit(channel)
   }
 
 }

@@ -1,17 +1,23 @@
 <!-- TODO maybe move these event handlers somewhere else -->
-<main class="app-main" #appMain (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" tabindex="0">
+<main class="app-main" #appMain (keydown)="onKeyDown($event)" tabindex="0">
 
   <ny-window-controls></ny-window-controls>
 
+    <!-- (volumeChanged)="onPlayerVolumeChange($event)" -->
   <ny-player
-    (volumeChanged)="onPlayerVolumeChange($event)"
     [channel]="channel"
+    [startVolume]="presets.volume"
     [volume]="playerVolume"
+    [toggleMute]="playerMute"
     [paused]="playerPaused"
     style="flex-grow: 1">
   </ny-player>
 
-  <ny-channels (changed)="onChannelChange($event)"></ny-channels>
+  <ny-channels
+    (changed)="onChannelsChange($event)"
+    (loaded)="onChannelsLoaded($event)"
+    [selected]="channel | async">
+  </ny-channels>
 
 </main>
 

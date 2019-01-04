@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Station } from './channels/station.model';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, of } from 'rxjs';
 import { Channel } from './channels/channel.model';
-import { ChannelsMetaService } from './channels-meta.service';
+import { share, publish } from 'rxjs/operators';
 
 @Component({
   selector: 'ny-root',
@@ -11,35 +11,39 @@ import { ChannelsMetaService } from './channels-meta.service';
 })
 export class AppComponent implements OnInit {
 
-  playerVolume = 2
+  // TODO maybe define a `Presets` module and service
+  private presets = {
+    autoplay: false,
+    playlist: 'deepspaceone',
+    volume: 3,
+  }
 
-  playerVolumePrev: number | null = null
+  playerVolume = new Subject<'Increase' | 'Decrease'>()
 
-  playerPaused = true
+  playerPaused = new BehaviorSubject<boolean>(!this.presets.autoplay)
 
-  channel: Subject<Channel> = new Subject()
+  playerMute = new Subject<boolean>()
+
+  channel?: BehaviorSubject<Channel> = new BehaviorSubject<Channel>()
+  // channel?: BehaviorSubject<Channel> = new BehaviorSubject<Channel>()
 
   availableStations?: Station[]
 
   @ViewChild('appMain') appMain: ElementRef;
 
-  constructor(private channelsMeta: ChannelsMetaService) {}
-
-  onChannelChange(channel: Channel) {
+  onChannelsChange(channel: Channel) {
     this.channel.next(channel)
+    this.playerPaused.next(false)
+  }
 
-    if (this.playerPaused) {
-      this.playerPaused = false
-    }
+  onChannelsLoaded(channels: Channel[]) {
+    const presetChannel = channels.find(({ id }) => id === this.presets.playlist)
+    this.channel.next(presetChannel || channels[0])
   }
 
   ngOnInit() {
-    // this.channelsMeta
     this.appMain.nativeElement.focus()
-  }
-
-  onKeyUp(evt: KeyboardEvent) {
-    //
+    this.playerPaused.next(!this.presets.autoplay)
   }
 
   onKeyDown(evt: KeyboardEvent) {
@@ -47,50 +51,24 @@ export class AppComponent implements OnInit {
     const DOWN = 40
     const SPACE = 32
     const ESC = 27
-    const RIGHT = 39
-    const LEFT = 37
 
     switch (evt.keyCode) {
       case UP:
-        this.playerVolumePrev = null
-        if (this.playerVolume < 10) {
-          this.playerVolume = this.playerVolume + 1
-        }
+        this.playerVolume.next('Increase')
         break;
 
       case DOWN:
-        this.playerVolumePrev = null
-        if (this.playerVolume > 0) {
-          this.playerVolume = this.playerVolume - 1
-        }
+        this.playerVolume.next('Decrease')
         break;
 
       case SPACE:
-        this.playerPaused = !this.playerPaused
+        this.playerPaused.next(!this.playerPaused.value)
         break;
 
       case ESC:
-        if (this.playerVolumePrev !== null) {
-          this.playerVolume = this.playerVolumePrev
-          this.playerVolumePrev = null
-        } else {
-          this.playerVolumePrev = this.playerVolume
-          this.playerVolume = 0
-        }
+        this.playerMute.next()
         break;
-
-      // case LEFT:
-      //   this.station.next(this.availableStations[Math.floor(Math.random() * 4)])
-      //   break;
-
-      // case RIGHT:
-      //   this.station.next(this.availableStations[Math.floor(Math.random() * 4)])
-      //   break;
     }
-  }
-
-  onPlayerVolumeChange(volume: number) {
-    this.playerVolume = volume
   }
 
 }

@@ -14,8 +14,8 @@
   <div class="columns col-gapless">
     <section class="column col-6 image-section">
       <ny-volume
-        [start]="initialVolume"
-        [value]="volume"
+        [start]="startVolume"
+        [value]="sliderValue"
         (changed)="onVolumeChange($event)">
       </ny-volume>
 
@@ -25,8 +25,7 @@
         [src]="station.largeimage">
     </section>
 
-    <!-- [ngClass]="{ paused: paused }" -->
-    <section class="column col-6 info-section">
+    <section class="column col-6 info-section" [ngClass]="{ paused: paused | async }">
       <header *ngIf="channel | async as station">
         <h1 class="station-title">{{station.title}}</h1>
         <p class="station-description">{{station.description}}</p>
