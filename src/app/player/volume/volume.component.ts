@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Options } from 'ng5-slider';
+import { Options, ChangeContext } from 'ng5-slider';
 
 interface SimpleSliderModel {
   value: number;
@@ -32,7 +32,7 @@ export class VolumeComponent implements OnInit, OnChanges {
     mouseSupport: true
   };
 
-  onUserChange(event) {
+  onUserChange(event: ChangeContext) {
     this.changed.emit(event.value)
   }
 

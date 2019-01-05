@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Station } from './channels/station.model';
-import { Subject, BehaviorSubject, of } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Channel } from './channels/channel.model';
-import { share, publish } from 'rxjs/operators';
+import { mergeMap, take, map } from 'rxjs/operators';
+import { PresetsService } from './presets/presets.service';
+import { ChannelsService } from './channels/channels.service';
 
 @Component({
   selector: 'ny-root',
@@ -11,39 +12,56 @@ import { share, publish } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-  // TODO maybe define a `Presets` module and service
-  private presets = {
-    autoplay: false,
-    playlist: 'deepspaceone',
-    volume: 3,
-  }
+  appReady = false
 
   playerVolume = new Subject<'Increase' | 'Decrease'>()
 
-  playerPaused = new BehaviorSubject<boolean>(!this.presets.autoplay)
+  startVolume = 0
+
+  playerPaused?: BehaviorSubject<boolean>
 
   playerMute = new Subject<boolean>()
 
-  channel?: BehaviorSubject<Channel> = new BehaviorSubject<Channel>()
-  // channel?: BehaviorSubject<Channel> = new BehaviorSubject<Channel>()
+  channels?: Channel[]
 
-  availableStations?: Station[]
+  selectedChannel?: BehaviorSubject<Channel>
 
   @ViewChild('appMain') appMain: ElementRef;
 
+  constructor(private presetsService: PresetsService,
+    private channelsService: ChannelsService) {}
+
   onChannelsChange(channel: Channel) {
-    this.channel.next(channel)
+    this.selectedChannel.next(channel)
     this.playerPaused.next(false)
   }
 
-  onChannelsLoaded(channels: Channel[]) {
-    const presetChannel = channels.find(({ id }) => id === this.presets.playlist)
-    this.channel.next(presetChannel || channels[0])
-  }
-
   ngOnInit() {
-    this.appMain.nativeElement.focus()
-    this.playerPaused.next(!this.presets.autoplay)
+    this.presetsService.defaultPresets()
+      .pipe(
+        mergeMap((presets) =>
+          this.channelsService.somafmChannels()
+            .pipe(
+              map(channels => {
+                const chan = channels.find(({ id }) => id === presets.playlist)
+                return [presets, channels, chan || channels[0]]
+              })
+            )
+        ),
+        take(1) // for now
+      )
+      .subscribe((res: [Presets, Channel[], Channel]) => {
+        const [ presets, channels, selectedChannel ] = res
+
+        this.startVolume = presets.volume
+        this.playerPaused = new BehaviorSubject(!presets.autoplay)
+
+        this.channels = channels
+        this.selectedChannel = new BehaviorSubject(selectedChannel)
+
+        this.appReady = true
+        this.appMain.nativeElement.focus()
+      })
   }
 
   onKeyDown(evt: KeyboardEvent) {

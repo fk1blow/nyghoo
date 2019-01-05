@@ -1,20 +1,9 @@
 <div class="radio">
 
-  <!-- <audio
-    #audioPlayer
-    *ngIf="channel | async as channel"
-    class="d-none"
-    [volume]="volumeScaled"
-    [autoplay]="true"
-    [muted]="paused"
-  >
-    <source src="http://localhost:3000/audio/somafm/{{channel.id}}" type="audio/mp3">
-  </audio> -->
-
   <div class="columns col-gapless">
     <section class="column col-6 image-section">
       <ny-volume
-        [start]="startVolume"
+        [start]="volume"
         [value]="sliderValue"
         (changed)="onVolumeChange($event)">
       </ny-volume>

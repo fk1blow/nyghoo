@@ -1,23 +1,27 @@
-<!-- TODO maybe move these event handlers somewhere else -->
 <main class="app-main" #appMain (keydown)="onKeyDown($event)" tabindex="0">
 
-  <ny-window-controls></ny-window-controls>
+  <div class="player-wrapper" *ngIf="appReady; else loading">
+    <ny-window-controls></ny-window-controls>
 
-    <!-- (volumeChanged)="onPlayerVolumeChange($event)" -->
-  <ny-player
-    [channel]="channel"
-    [startVolume]="presets.volume"
-    [volume]="playerVolume"
-    [toggleMute]="playerMute"
-    [paused]="playerPaused"
-    style="flex-grow: 1">
-  </ny-player>
+    <ny-player
+      [channel]="selectedChannel"
+      [volume]="startVolume"
+      [volumeChanges]="playerVolume"
+      [toggleMute]="playerMute"
+      [paused]="playerPaused"
+      style="flex-grow: 1">
+    </ny-player>
 
-  <ny-channels
-    (changed)="onChannelsChange($event)"
-    (loaded)="onChannelsLoaded($event)"
-    [selected]="channel | async">
-  </ny-channels>
+    <ny-channels
+      [channels]="channels"
+      (changed)="onChannelsChange($event)"
+      [selected]="selectedChannel">
+    </ny-channels>
+  </div>
+
+  <ng-template #loading>
+    <div #loading class="app-loading"></div>
+  </ng-template>
 
 </main>
 
