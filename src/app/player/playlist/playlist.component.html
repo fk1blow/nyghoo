@@ -1,4 +1,4 @@
-<div class="playlist">
+<div class="playlist" [ngClass]="{ paused: paused | async }">
 
   <ul class="playlist-wrapper">
     <li *ngFor="let song of playlist" class="playlist-item">
@@ -7,4 +7,3 @@
   </ul>
 
 </div>
-

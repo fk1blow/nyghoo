@@ -1,62 +1,47 @@
 :host {
   width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
-.radio {
-  height: 100%;
-  width: 100%;
-  padding: 40px 0;
-  margin: 0 auto;
+.image-section {
+  position: relative;
+  display: flex;
   flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+
+  .station-image {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+.info-section {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  width: 50%;
+  padding: 40px 0;
 
-  .image-section {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 420px;
-    max-height: 420px;
-
-    .station-image {
-      width: 300px;
-      height: 300px;
-    }
+  .station-title {
+    display: table;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color .2s ease-in-out;
   }
 
-  .info-section {
-    .station-title {
-      display: table;
-      padding: 6px 14px 6px 14px;
-      margin-bottom: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      background: #CBCE3F;
-      transition: all .2s ease;
-    }
-
-    .station-description {
-      display: table;
-      padding: 10px 14px 10px 14px;
-      max-width: 66%;
-      font-size: 18px;
-      background: #CBCE3F;
-      transition: all .2s ease;
-    }
+  .station-description {
+    display: table;
+    max-width: 66%;
+    font-size: 18px;
+    margin-bottom: 2rem;
+    transition: color .2s ease-in-out;
   }
+}
 
-  .info-section.paused {
-    .station-title {
-      background: #46846A;
-      color: #EDE9F2;
-    }
-
-    .station-description {
-      background: #46846A;
-      color: #EDE9F2;
-    }
+.info-section.paused {
+  .station-title, .station-description {
+    color: #BBBBBB;
   }
 }

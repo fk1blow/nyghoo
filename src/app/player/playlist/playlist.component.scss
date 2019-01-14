@@ -2,26 +2,29 @@
   max-height: 250px;
   overflow: hidden;
 
+  &.paused {
+    color: #BBBBBB;
+  }
+
   ul, li {
     list-style-type: none;
     margin: 0;
     padding: 0;
     line-height: initial;
-    color: #EDE9F2;
-    font-weight: bold;
   }
 
   &-item {
+    transition: color .2s ease-in-out;
     span {
       display: inline-block;
-      padding: 0 14px;
       max-width: 100%;
       line-height: 36px;
       white-space: nowrap;
       overflow: hidden;
+      font-weight: 500;
       text-overflow: ellipsis;
-      border-bottom: 3px solid;
-      border-color: #CBCE3F;
+      border-bottom: 2px solid;
+      border-color: #BBBBBB;
     }
   }
 }

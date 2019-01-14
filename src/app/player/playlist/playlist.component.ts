@@ -14,7 +14,9 @@ import { ChannelUpdate } from 'src/app/channels/channel-update.model';
 })
 export class PlaylistComponent implements OnInit {
 
-  @Input() channel: BehaviorSubject<Channel | null>
+  @Input() channel: Observable<Channel | null>
+
+  @Input() paused: Observable<boolean>
 
   private playlist: any[] = []
 
@@ -28,42 +30,37 @@ export class PlaylistComponent implements OnInit {
       cdataKey: 'text'
     }
 
-    // when the 'channel' emits, fetch the songs for this stations
-    this.channel.pipe(
+    const channelUpdate$ = this.channel.pipe(
       filter(chan => chan !== null),
+      map((chan: Channel) => chan.id)
+    )
 
-      map((chan: Channel) => chan.id),
+    // when the 'channel' emits, fetch the songs for this stations
+    channelUpdate$.pipe(
+        mergeMap((id: string) =>
+          this.http
+            .get(`http://somafm.com/songs/${id}.xml`, { responseType: 'text' })
+            .pipe(
+              map((playlistXml: string) => JSON.parse(xml2json(playlistXml, parserOpts))),
 
-      mergeMap((id: string) =>
-        this.http
-          .get(`http://somafm.com/songs/${id}.xml`, { responseType: 'text' })
-          .pipe(
-            map((playlistXml: string) => JSON.parse(xml2json(playlistXml, parserOpts))),
+              pluck('songs', 'song'),
 
-            pluck('songs', 'song'),
+              map((pls: Array<{title: {text: string}, artist: {text: string}}>) =>
+                pls.map(item => `${item.artist.text} - ${item.title.text}`)),
 
-            map((pls: Array<{title: {text: string}, artist: {text: string}}>) =>
-              pls.map(item => `${item.artist.text} - ${item.title.text}`)),
-
-            catchError((err) => of(err)))
+              catchError((err) => of(err)))
+        )
       )
-    )
-    .subscribe(
-      (playlist) => this.playlist = playlist
-    )
+      .subscribe(
+        (playlist) => this.playlist = playlist
+      )
 
     // when the `channel` emits, start listening to channel meta updates
     // and modify the `playlist` accordingly
-    this.channel
-      .pipe(
-        filter(chan => chan !== null),
-
-        map((chan: Channel) => chan.id),
-
-        switchMap((id: string) => {
-          return this.channelMeta.updates$
-            .pipe(filter((update: any) => update.station === id))
-        })
+    channelUpdate$.pipe(
+        switchMap((id: string) => this.channelMeta.updates$
+          .pipe(filter((update: any) => update.station === id))
+        )
       )
       .subscribe((update: ChannelUpdate) => {
         const songFromMetaPls: string = update.data['StreamTitle']

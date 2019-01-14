@@ -1,52 +1,26 @@
-.stations {
-  display: flex;
-  height: 120px;
-  padding: 0px 40px;
-  background: #46846A;
-
-  &-list {
-    display: flex;
-    flex: 1;
-    list-style-type: none;
-    margin: 0;
-
-    .item {
-      margin: 0;
-      margin-right: 40px;
-      width: 80px;
-      height: 80px;
-    }
-
-    .station-pic {
-      padding: 0;
-      padding-top: 16px;
-      border: none;
-      border-top: 4px solid #46846A;
-      background: none;
-      outline: none;
-      transition: border .1s ease-out;
-
-      &:hover, &.active {
-        cursor: pointer;
-        border-top: 4px solid #CBCE3F;
-      }
-    }
-  }
-
-  &-actions {
-    display: flex;
-    align-items: center;
-
-    .btn {
-      width: 40px;
-      font-size: 1.25rem;
-      background: #CBCE3F;
-      border: none;
-      border-radius: 0;
-    }
-  }
-}
-
 :host {
   width: 100%;
+}
+
+.stations {
+  display: flex;
+  padding: 24px 40px;
+  background: #e3e3e3;
+
+  .station-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .station-pic {
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+
+    &:hover, &.active {
+      cursor: pointer;
+    }
+  }
 }

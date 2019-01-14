@@ -1,8 +1,8 @@
 const { app, BrowserWindow } = require('electron');
-const createServer = require('./src/server')
+const streamingService = require('./src/server')
 
 // hmmmm
-createServer()
+streamingService()
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
 

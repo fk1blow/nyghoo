@@ -39,7 +39,6 @@ module.exports = function() {
 
   // channel audio streaming
 
-  // audio stream for SomaFM station
   app.get('/audio/:station_id/:channel_id', (req, res) => {
     const streamUrl = `http://ice3.somafm.com/${req.params.channel_id}-128-mp3`
 

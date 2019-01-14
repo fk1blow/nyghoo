@@ -13,30 +13,31 @@
   justify-content: flex-end;
   -webkit-user-select: none;
   -webkit-app-region: drag;
-  // background: #46846A;
 
   .navigation {
-    background: #CBCE3F;
     cursor: pointer;
     -webkit-app-region: no-drag;
   }
 
   .btn {
     padding: 0;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
+    font-size: 18px;
     border: none;
     background: none;
+    color: #3E3F59;
     border-radius: 0;
     box-shadow: none;
     cursor: default;
 
     &:hover {
-      background-color: darken(#CBCE3F, 5%);
+      background-color: darken(#e3e3e3, 1%);
     }
 
     &:focus, &:active {
-      color: #EDE9F2;
+      background-color: darken(#e3e3e3, 1%);
+      color: lighten(#3E3F59, 30%);
     }
   }
 }

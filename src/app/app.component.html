@@ -9,7 +9,7 @@
       [volumeChanges]="playerVolume"
       [toggleMute]="playerMute"
       [paused]="playerPaused"
-      style="flex-grow: 1">
+      style="display: flex; flex-grow: 1">
     </ny-player>
 
     <ny-channels
@@ -20,7 +20,7 @@
   </div>
 
   <ng-template #loading>
-    <div #loading class="app-loading"></div>
+    <div class="app-loading"></div>
   </ng-template>
 
 </main>
